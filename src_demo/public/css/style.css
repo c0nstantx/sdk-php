@@ -1,0 +1,29 @@
+#content {
+    width: 821px;
+    height: 100%;
+    margin: auto; background-color: #f3f3f5;
+}
+.top-tweet {
+    background-color: #FFFFFF; width: 90%;
+    margin: 5%;
+    float: left;
+}
+.top-tweet .block {
+    padding: 3%;
+    float: left;
+}
+.top-tweet .badge {
+    width: 20%;
+    background-color: transparent;
+}
+.top-tweet .tweet-content {
+    width: 50%;
+}
+.top-tweet .retweets-block {
+    width: 10%;
+    text-align: center;
+    margin-top: 3%;
+}
+.top-tweet .retweets-block .count {
+    font-size: 2em;
+}
