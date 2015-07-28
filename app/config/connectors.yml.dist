@@ -1,0 +1,3 @@
+connectors:
+    oauth2_provider: {access_token: requested_access_token} # For Oauth2 APIs
+    oauth1_provider: {api_key: app_key, api_secret: app_secret, access_token: requested_access_token, access_token_secret: requested_access_token} # For OAuth1 APIs

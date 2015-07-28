@@ -1,0 +1,9 @@
+responses:
+    facebook_response:
+      'facebook/path':
+          var1: 'val1'
+          var2: 'val2'
+    twitter_response:
+        'twitter/path':
+            var1: 'val1'
+            var2: 'val2'

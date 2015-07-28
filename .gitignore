@@ -1,0 +1,7 @@
+/vendor/
+/app/config/connectors.yml
+/app/config/responses.yml
+/src/*
+/web/assets/*
+/.idea
+/composer.lock
