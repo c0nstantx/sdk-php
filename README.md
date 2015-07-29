@@ -64,7 +64,7 @@ In case you don't want or you can't create an app in an API provider, you can mo
 
 After that you can define your own responses to any API endpoint you want by using the according connector key.
 
-ex. ***responses.yml** for twitter/facebook*
+ex. **responses.yml** for *twitter/facebook*
 
     responses:
         facebook:
