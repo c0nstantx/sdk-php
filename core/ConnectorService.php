@@ -21,10 +21,14 @@ class ConnectorService
 
     protected $connection;
 
-    public function __construct($connectors, Browser $httpClient, $connection = 'live')
+    protected $responses;
+
+    public function __construct($connectors, Browser $httpClient,
+                                $connection = 'live', array $responses = [])
     {
         $this->client = $httpClient;
         $this->connection = $connection;
+        $this->responses = $responses;
         foreach($connectors as $connector => $params) {
             $this->connectors[$connector] = $this->buildConnector($connector, $params);
         }
@@ -49,17 +53,24 @@ class ConnectorService
         require_once $reflectionClass->getFileName();
         $connector = $reflectionClass->newInstance($this->client);
 
-        $connection = new Connection();
+        if ($this->connection === 'live') {
+            $connection = new Connection();
 
-        if ($connector instanceof Oauth1Connector) {
-            $connector->key = $params['api_key'];
-            $connector->secret = $params['api_secret'];
-            $connection->setIdentifier($params['access_token']);
-            $connection->setSecret($params['access_token_secret']);
+            if ($connector instanceof Oauth1Connector) {
+                $connector->key = $params['api_key'];
+                $connector->secret = $params['api_secret'];
+                $connection->setIdentifier($params['access_token']);
+                $connection->setSecret($params['access_token_secret']);
+            } else {
+                $connection->setAccessToken($params['access_token']);
+            }
+            $connector->buildToken($connection);
         } else {
-            $connection->setAccessToken($params['access_token']);
+            if (!isset($this->responses[$provider])) {
+                throw new \RuntimeException("You requested sandbox environment for '$provider', but you haven't defined any responses in app/config/responses.yml");
+            }
+            $connector->setResponses($this->responses[$provider]);
         }
-        $connector->buildToken($connection);
         return $connector;
     }
 }

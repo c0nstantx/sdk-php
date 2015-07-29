@@ -7,7 +7,7 @@ parameters:
 services:
     connector_service:
         class: %connector_service.class%
-        arguments: [%connectors%, @buzz, %connection%]
+        arguments: [%connectors%, @buzz, %connection%, %responses%]
     report_service:
         class: %report_service.class%
         arguments: [@service_container]

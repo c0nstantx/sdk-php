@@ -1,11 +1,7 @@
 parameters:
-    connection: live #sandbox or live type of connection
+    connection: sandbox #sandbox or live type of connection
     show_errors: true
     report_assets: assets
-
-#framework:
-#    templating:
-#        engines: ['twig']
 
 sensio_buzz:
     client_timeout: 180

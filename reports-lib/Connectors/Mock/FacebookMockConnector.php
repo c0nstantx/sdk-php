@@ -6,6 +6,7 @@
 
 namespace RAM\Connectors\Mock;
 use RAM\Connectors\FacebookConnector;
+use RG\Traits\MockConnectorTrait;
 
 /**
  * Description of FacebookMockConnector
@@ -14,5 +15,5 @@ use RAM\Connectors\FacebookConnector;
  */
 class FacebookMockConnector extends FacebookConnector
 {
-
+    use MockConnectorTrait;
 }

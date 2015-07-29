@@ -6,6 +6,7 @@
 
 namespace RAM\Connectors\Mock;
 use RAM\Connectors\TwitterConnector;
+use RG\Traits\MockConnectorTrait;
 
 /**
  * Description of TwitterMockConnector
@@ -14,5 +15,5 @@ use RAM\Connectors\TwitterConnector;
  */
 class TwitterMockConnector extends TwitterConnector
 {
-
+    use MockConnectorTrait;
 }
