@@ -7,3 +7,5 @@ Available Connectors
 (key: `facebook`)
 - **Facebook Page**                
 (key: `facebookpage`)
+- **Stripe**                
+(key: `stripe`)
