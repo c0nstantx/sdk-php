@@ -57,29 +57,6 @@ abstract class BaseReport implements ReportInterface
     }
 
     /**
-     * @param array $fields
-     * @return $this
-     */
-    final public function setFields($fields = [])
-    {
-        $this->fields = $fields;
-
-        return $this;
-    }
-
-    /**
-     * @param string $fieldName
-     * @return null|string
-     */
-    final public function getField($fieldName)
-    {
-        if (isset($this->fields[$fieldName])) {
-            return $this->fields[$fieldName];
-        }
-        return null;
-    }
-
-    /**
      * @param $connectors
      * @return $this
      */

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="./app/bootstrap.php" colors="true">
+
+  <testsuites>
+    <testsuite name="Rocketgraph PHP SDK test suite">
+      <directory suffix="Test.php">./tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <filter>
+    <whitelist>
+      <directory>./core</directory>
+      <directory>./reports-lib</directory>
+    </whitelist>
+  </filter>
+</phpunit>
