@@ -12,4 +12,4 @@ before_install:
 install: composer update --no-interaction
 
 notifications:
-    email: kostasxx@yahoo.com
+    email: kostas.christofilos@rocketgraph.com
