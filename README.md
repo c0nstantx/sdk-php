@@ -3,6 +3,8 @@ Rocketgraph SDK for PHP
 
 [Rocketgraph][1] is a cloud reporting service and this is the SDK for developing and testing reports written in PHP.
 
+[![Build Status](https://travis-ci.org/rocketgraph/sdk-php.svg?branch=master)](https://travis-ci.org/rocketgraph/sdk-php)
+
 Prerequisites
 -----------------
 
