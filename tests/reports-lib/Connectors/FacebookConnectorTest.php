@@ -5,7 +5,7 @@
  * <http://www.rocketgraph.com>.
  */
 
-namespace RG\ReportsBundle\Tests\RAM\Connectors;
+namespace Tests\RAM\Connectors;
 
 use RAM\Connectors\FacebookConnector;
 
