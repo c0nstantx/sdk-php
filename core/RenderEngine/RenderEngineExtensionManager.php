@@ -39,11 +39,26 @@ class RenderEngineExtensionManager
     }
 
     /**
+     * Returns a registered extension or null if not exist
+     *
+     * @param string $extension
+     * @return null|\Twig_Extension
+     */
+    public function findExtension($extension)
+    {
+        if (isset($this->extensions[$extension])) {
+            return $this->extensions[$extension];
+        }
+        return null;
+    }
+
+    /**
      * Find and registers all available extensions.
      */
     protected function findExtensions()
     {
+        /* TODO: Automate extension addition */
         $routingExtension = new ReportRouting($this->templatingHelper, $this->report);
-        $this->extensions[] = $routingExtension;
+        $this->extensions[$routingExtension->getName()] = $routingExtension;
     }
 }

@@ -158,7 +158,8 @@ abstract class BaseReport implements ReportInterface
     {
         $preEvent = new FilterReportEvent($this);
         $this->dispatcher->dispatch(ReportEvents::REPORT_PRE_RENDER, $preEvent);
-        $this->response = $this->render();
+        $response = $this->render();
+        $this->response = $this->renderEngine->transformAssetPaths($response);
         $postEvent = new FilterReportEvent($this);
         $this->dispatcher->dispatch(ReportEvents::REPORT_POST_RENDER, $postEvent);
 

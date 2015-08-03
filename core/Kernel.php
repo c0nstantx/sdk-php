@@ -54,6 +54,7 @@ class Kernel
         $this->container = new ContainerBuilder();
         $this->container->setParameter('src_path', __DIR__.'/../src');
         $this->container->setParameter('app_path', __DIR__.'/../app');
+        $this->container->setParameter('web_path', __DIR__.'/../web');
         $this->container->setParameter('kernel.debug', $this->debug);
 
         $locator = new FileLocator($this->configPath);
@@ -99,7 +100,7 @@ class Kernel
         $reportService = $this->container->get('report_service');
         $reportService->warmupReport();
         $report = $reportService->getReport();
-        $response = new Response($report->render());
+        $response = new Response($report->run());
         return $response;
     }
 

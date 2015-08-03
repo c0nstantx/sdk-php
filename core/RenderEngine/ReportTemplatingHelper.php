@@ -24,17 +24,30 @@ class ReportTemplatingHelper
 
     protected $reportAssetsFolder;
 
+    protected $webPath;
+
     /**
      * Construct report templating helper
      *
      * @param string $reportAssetsFolder
      */
-    public function __construct($reportAssetsFolder)
+    public function __construct($reportAssetsFolder, $webPath)
     {
         $package = new Package(new EmptyVersionStrategy());
         $packages = new Packages($package);
         $this->templatingHelper = new AssetsHelper($packages);
         $this->reportAssetsFolder = $reportAssetsFolder;
+        $this->webPath = $webPath;
+    }
+
+    /**
+     * Returns web folder path
+     *
+     * @return string
+     */
+    public function getWebPath()
+    {
+        return $this->webPath;
     }
 
     /**

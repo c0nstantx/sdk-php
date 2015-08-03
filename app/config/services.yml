@@ -16,4 +16,4 @@ services:
         arguments: [@service_container]
     report_templating_helper:
         class: %report_templating_helper.class%
-        arguments: [%report_assets%]
+        arguments: [%report_assets%, %web_path%]
