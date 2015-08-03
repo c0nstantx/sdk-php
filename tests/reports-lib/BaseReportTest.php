@@ -56,11 +56,26 @@ class BaseReportTest extends \PHPUnit_Framework_TestCase
             ])
             ->getMockForAbstractClass();
 
+        $reportEngine = $this->getMockBuilder('RG\RenderEngine\RenderEngine')
+            ->disableOriginalConstructor()
+            ->setMethods([
+                'transformAssetPaths'
+            ])
+            ->getMock();
+
+        $reportEngine->expects($this->any())
+            ->method('transformAssetPaths')
+            ->willReturnCallback(function() {
+                return $this->content;
+            });
+
         $this->baseReport->expects($this->any())
             ->method('install')
             ->willReturnCallback(function() {
                 $this->installed = true;
             });
+
+        $this->baseReport->setRenderEngine($reportEngine);
 
         $this->baseReport->expects($this->any())
             ->method('uninstall')
