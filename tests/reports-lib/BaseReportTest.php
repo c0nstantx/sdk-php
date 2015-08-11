@@ -121,6 +121,13 @@ class BaseReportTest extends \PHPUnit_Framework_TestCase
 
         $reflection = new \ReflectionClass($this->baseReport);
         $this->assertEquals(dirname($reflection->getFileName()), $path);
+
+        /* Request parameters */
+        $params = ['param1'=>'value1', 'param2'=>'value2'];
+        $this->baseReport->setParams($params);
+        $this->assertEquals(2, count($this->baseReport->getParams()));
+        $this->assertEquals('value1', $this->baseReport->getParam('param1'));
+        $this->assertNull($this->baseReport->getParam('param3'));
     }
 
     public function testFlow()

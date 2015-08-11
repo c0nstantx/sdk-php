@@ -56,6 +56,9 @@ class RenderEngine extends \Twig_Environment
     public function transformAssetPaths($content)
     {
         $doc = new \DOMDocument();
+        if (!$content) {
+            return '';
+        }
         $doc->loadHTML($content);
         $reportRouting = $this->extensionManager->findExtension('report_routing');
 

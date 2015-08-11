@@ -36,7 +36,7 @@ class ReportService
     public function warmupReport()
     {
         $dirIterator = new \DirectoryIterator($this->srcPath);
-        $report = null;
+        $this->report = null;
         foreach($dirIterator as $dir) {
             if (!$dir->isDot() && $dir->isFile()) {
                 $reportPath = $dir->getPathname();
