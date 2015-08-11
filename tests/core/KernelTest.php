@@ -17,7 +17,7 @@ class KernelTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandle()
     {
-        $kernel = new Kernel(__DIR__.'/../../app/config');
+        $kernel = new Kernel(__DIR__.'/../fixtures/config_sandbox');
         $kernel->loadContainer();
         $container = $kernel->getContainer();
         $container->setParameter('src_path', __DIR__.'/../fixtures/reports/report1');

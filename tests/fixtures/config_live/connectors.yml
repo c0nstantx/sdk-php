@@ -1,0 +1,3 @@
+connectors:
+    facebook: {access_token: requested_access_token} # For Oauth2 APIs
+    twitter: {api_key: app_key, api_secret: app_secret, access_token: requested_access_token, access_token_secret: requested_access_token} # For OAuth1 APIs

@@ -1,0 +1,19 @@
+parameters:
+    connector_service.class: RG\ConnectorService
+    report_service.class: RG\ReportService
+    event_dispatcher.class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+    report_templating_helper.class: RG\RenderEngine\ReportTemplatingHelper
+
+services:
+    connector_service:
+        class: %connector_service.class%
+        arguments: [%connectors%, @buzz, %connection%, %responses%]
+    report_service:
+        class: %report_service.class%
+        arguments: [@service_container]
+    event_dispatcher:
+        class: %event_dispatcher.class%
+        arguments: [@service_container]
+    report_templating_helper:
+        class: %report_templating_helper.class%
+        arguments: [%report_assets%, %web_path%]

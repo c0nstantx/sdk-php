@@ -1,0 +1,7 @@
+parameters:
+    connection: live #sandbox or live type of connection
+    show_errors: true
+    report_assets: assets
+
+sensio_buzz:
+    client_timeout: 180

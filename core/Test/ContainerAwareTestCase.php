@@ -18,7 +18,7 @@ class ContainerAwareTestCase extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $configPath = __DIR__.'/../../app/config/';
+        $configPath = __DIR__.'/../../tests/fixtures/config_live';
 
         $kernel = new Kernel($configPath);
         $kernel->loadContainer();
