@@ -46,7 +46,7 @@ abstract class BaseReport implements ReportInterface
     protected $connectors;
 
     /* @var array */
-    protected $fields;
+    protected $params;
 
     /**
      * @param EventDispatcherInterface $dispatcher
@@ -103,6 +103,46 @@ abstract class BaseReport implements ReportInterface
         $this->scripts[] = $script;
 
         return $this;
+    }
+
+    /**
+     * Set input params
+     *
+     * @param array $params
+     *
+     * @return $this
+     */
+    final public function setParams($params = [])
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * Get a specific input parameters
+     *
+     * @param string $param
+     *
+     * @return null|string
+     */
+    final public function getParam($param)
+    {
+        if (isset($this->params[$param])) {
+            return $this->params[$param];
+        }
+
+        return null;
+    }
+
+    /**
+     * Get all input params
+     *
+     * @return array
+     */
+    final public function getParams()
+    {
+        return $this->params;
     }
 
     /**

@@ -9,6 +9,7 @@ use RAM\BaseReport;
 use RG\Exception\ReportNotFoundException;
 use RG\RenderEngine\RenderEngine;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of ReportService
@@ -53,6 +54,7 @@ class ReportService
             throw new ReportNotFoundException('No valid report found in src folder ('.$this->srcPath.')');
         }
         $this->setupConnectors();
+        $this->setupParameters();
     }
 
     /**
@@ -63,6 +65,15 @@ class ReportService
     public function getReport()
     {
         return $this->report;
+    }
+
+    /**
+     * Setup request parameters
+     */
+    protected function setupParameters()
+    {
+        $request = Request::createFromGlobals();
+        $this->report->setParams($request->query->all());
     }
 
     /**
