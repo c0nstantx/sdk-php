@@ -10,13 +10,13 @@ use Buzz\Browser;
 use RG\Oauth2Connector;
 
 /**
- * Description of StripeConnector.
+ * Description of DribbbleConnector.
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class StripeConnector extends Oauth2Connector
+class DribbbleConnector extends Oauth2Connector
 {
-    const API_HOST = 'https://api.stripe.com';
+    const API_HOST = ' https://api.dribbble.com';
 
     const API_VERSION = 'v1';
 
@@ -79,7 +79,7 @@ class StripeConnector extends Oauth2Connector
      */
     public function urlAuthorize()
     {
-        return 'https://connect.stripe.com/oauth/authorize';
+        return 'https://dribbble.com/oauth/authorize';
     }
 
     /**
@@ -89,6 +89,6 @@ class StripeConnector extends Oauth2Connector
      */
     public function urlAccessToken()
     {
-        return 'https://connect.stripe.com/oauth/token';
+        return 'https://dribbble.com/oauth/token';
     }
 }
