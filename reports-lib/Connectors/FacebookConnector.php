@@ -8,7 +8,6 @@ namespace RAM\Connectors;
 
 use Buzz\Browser;
 use RG\Oauth2Connector;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of FacebookConnector.
