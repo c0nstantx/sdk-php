@@ -1,11 +1,13 @@
 Available Connectors
 ====================
 
-- **Twitter**                      
+- **Twitter**
 (key: `twitter`)
-- **Facebook**                 
+- **Facebook**
 (key: `facebook`)
-- **Facebook Page**                
+- **Facebook Page**
 (key: `facebookpage`)
-- **Stripe**                
+- **Stripe**
 (key: `stripe`)
+- **Dribbble**
+(key: `dribbble`)
