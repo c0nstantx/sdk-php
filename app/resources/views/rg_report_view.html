@@ -6,18 +6,6 @@
     {% set title = 'No report' %}
 {% endif %}
 
-{% block head %}
-    {% if report %}
-        {% for style in report.styles %}
-        <link rel="stylesheet" href="{{ path(style) }}" />
-        {% endfor %}
-
-        {% for script in report.scripts %}
-        <script src="{{ path(script) }}"></script>
-        {% endfor %}
-    {% endif %}
-{% endblock %}
-
 {% block body %}
     {{ content|raw }}
 {% endblock %}

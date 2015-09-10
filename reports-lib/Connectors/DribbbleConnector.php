@@ -16,7 +16,7 @@ use RG\Oauth2Connector;
  */
 class DribbbleConnector extends Oauth2Connector
 {
-    const API_HOST = ' https://api.dribbble.com';
+    const API_HOST = 'https://api.dribbble.com';
 
     const API_VERSION = 'v1';
 
