@@ -6,7 +6,6 @@
 
 namespace RG;
 use Buzz\Browser;
-use Symfony\Component\Process\Exception\RuntimeException;
 
 /**
  * Description of ConnectorService
@@ -48,7 +47,7 @@ class ConnectorService
             $connectorClass = ucfirst(strtolower($provider)).'Connector';
             $reflectionClass = new \ReflectionClass("RAM\\Connectors\\$connectorClass");
         } else {
-            throw new RuntimeException("No valid connection type was found. Valid types are 'sandbox' or 'live'");
+            throw new \RuntimeException("No valid connection type was found. Valid types are 'sandbox' or 'live'");
         }
         require_once $reflectionClass->getFileName();
         $connector = $reflectionClass->newInstance($this->client);

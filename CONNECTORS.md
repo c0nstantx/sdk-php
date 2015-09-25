@@ -11,3 +11,5 @@ Available Connectors
 (key: `stripe`)
 - **Dribbble**
 (key: `dribbble`)
+- **Soundcloud**
+(key: `soundcloud`)
