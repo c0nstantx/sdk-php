@@ -21,12 +21,12 @@
   "scripts": {
     "post-install-cmd": [
       "php -r \"if(!is_dir('src')){mkdir('src');}\"",
-      "php -r \"if(!is_dir('web/assets')) {umask(0);mkdir('web/assets', 0777);}\""
+      "php -r \"if(!is_dir('web/assets')) {umask(0);mkdir('web/assets', 0777);}\"",
       "php -r \"if(!is_dir('storage')) {umask(0);mkdir('storage', 0777);}\""
     ],
     "post-update-cmd": [
       "php -r \"if(!is_dir('src')){mkdir('src');}\"",
-      "php -r \"if(!is_dir('web/assets')) {umask(0);mkdir('web/assets', 0777);}\""
+      "php -r \"if(!is_dir('web/assets')) {umask(0);mkdir('web/assets', 0777);}\"",
       "php -r \"if(!is_dir('storage')) {umask(0);mkdir('storage', 0777);}\""
     ]
   }
