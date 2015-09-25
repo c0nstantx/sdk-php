@@ -2,6 +2,7 @@ parameters:
     connection: live #sandbox or live type of connection
     show_errors: true
     report_assets: assets
+    storage_path: storage
 
 sensio_buzz:
     client_timeout: 180

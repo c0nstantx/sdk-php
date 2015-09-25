@@ -3,6 +3,7 @@ parameters:
     report_service.class: RG\ReportService
     event_dispatcher.class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
     report_templating_helper.class: RG\RenderEngine\ReportTemplatingHelper
+    storage_service.class: RG\Storage
 
 services:
     connector_service:
@@ -17,3 +18,6 @@ services:
     report_templating_helper:
         class: %report_templating_helper.class%
         arguments: [%report_assets%, %web_path%]
+    storage_service:
+        class: %storage_service.class%
+        arguments: [%storage_path%]

@@ -47,8 +47,12 @@ class BaseReportTest extends \PHPUnit_Framework_TestCase
             ])
             ->getMock();
 
+        $storage = $this->getMockBuilder('\RG\Storage')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->baseReport = $this->getMockBuilder('RAM\BaseReport')
-            ->setConstructorArgs([$dispatcher])
+            ->setConstructorArgs([$dispatcher, $storage])
             ->setMethods([
                 'install',
                 'uninstall',
