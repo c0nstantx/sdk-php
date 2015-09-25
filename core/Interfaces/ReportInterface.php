@@ -7,6 +7,7 @@
 namespace RG\Interfaces;
 
 use RG\ReportConnector;
+use RG\Storage;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -14,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 interface ReportInterface
 {
-    public function __construct(EventDispatcherInterface $dispatcher);
+    public function __construct(EventDispatcherInterface $dispatcher, Storage $storage);
 
     /**
      * Install process

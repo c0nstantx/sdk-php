@@ -12,6 +12,7 @@ namespace RAM;
 use Doctrine\Common\Collections\ArrayCollection;
 use RG\Interfaces\ReportInterface;
 use RG\Exception\ConnectorNotFoundException;
+use RG\Storage;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use RG\Event\FilterReportEvent;
 use RG\Event\ReportEvents;
@@ -48,12 +49,16 @@ abstract class BaseReport implements ReportInterface
     /* @var array */
     protected $params;
 
+    /* @var \RG\Storage */
+    protected $storage;
+
     /**
      * @param EventDispatcherInterface $dispatcher
      */
-    final public function __construct(EventDispatcherInterface $dispatcher)
+    final public function __construct(EventDispatcherInterface $dispatcher, Storage $storage)
     {
         $this->dispatcher = $dispatcher;
+        $this->storage = $storage;
     }
 
     /**
