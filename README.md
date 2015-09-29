@@ -113,6 +113,18 @@ For example, if you have installed the sdk to your `localhost` root folder, you 
 For more details on how to create a report read the [Developer's Manual][9].
 
 
+Aggregation
+------------
+
+Reports can support an aggregation function in order to store processed data in a daily basis.
+
+In order to emulate the aggregation process you can run the following command from the root folder:
+
+    php app/aggregate.php
+    
+For more information about this functionality you can read the [Developer's manual][9]
+
+
 [1]: https://rocketgraph.com
 [2]: https://getcomposer.org/doc/00-intro.md
 [3]: http://yaml.org/
