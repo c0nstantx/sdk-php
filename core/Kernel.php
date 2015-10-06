@@ -116,15 +116,17 @@ class Kernel
 
         if ($this->container->getParameter('connection') === 'sandbox') {
             $responses = Yaml::parse($this->configPath.'/responses.yml');
-            foreach($responses['responses'] as $connector => &$response) {
-                foreach($response as $path => &$values) {
-                    $values = json_decode(json_encode($values));
+            if (is_array($responses)) {
+                foreach ($responses['responses'] as $connector => &$response) {
+                    foreach ($response as $path => &$values) {
+                        $values = json_decode(json_encode($values));
+                    }
                 }
+                $this->container->setParameter('responses', $responses['responses']);
+                return;
             }
-            $this->container->setParameter('responses', $responses['responses']);
-        } else {
-            $this->container->setParameter('responses', []);
         }
+        $this->container->setParameter('responses', []);
     }
 
     /**
