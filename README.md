@@ -103,6 +103,25 @@ ex. **responses.yml** for *twitter/facebook*
                     created_at: 2014-01-01 00:00:00
                     text: 'tweet tweet tweet4'
 
+
+For mocking up the open connector responses you have to use the key `open` in the responses file and the whole URL of the API as endpoint to your response.
+
+For Example:
+
+    reponses:
+        facebook:
+            ...
+        twitter:
+            ...
+        open:
+            'http://my.apiendpoint.com':
+                param1: value1
+                param2: value2
+            'http://my.apiendpoint.com?query1=x&query2=y':
+                param1: value1
+                param2: value2
+            
+
 Report Development
 ---------------------------
 
@@ -123,6 +142,13 @@ In order to emulate the aggregation process you can run the following command fr
     php app/aggregate.php
     
 For more information about this functionality you can read the [Developer's manual][9]
+
+Sentiment Analysis
+------------------
+
+Sentiment analysis API cannot be implemented inside the SDK, that's why the `caclulate` method will return a random number between -1 and 1.
+
+    $this->sentiment->calculate('Phrase to test sentiment'); // Random -1 to 1
 
 
 [1]: https://rocketgraph.com

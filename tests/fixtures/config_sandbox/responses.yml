@@ -32,3 +32,6 @@ responses:
             tweet4:
                 created_at: 2014-01-01 00:00:00
                 text: 'tweet tweet tweet4'
+    open:
+        'http://my.apiendpoint.com':
+            param1: value1

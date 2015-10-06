@@ -6,6 +6,8 @@
 
 namespace RG;
 use Buzz\Browser;
+use RAM\Connectors\Mock\NoAuthMockConnector;
+use RAM\Connectors\NoAuthConnector;
 
 /**
  * Description of ConnectorService
@@ -36,6 +38,23 @@ class ConnectorService
     public function getConnectors()
     {
         return $this->connectors;
+    }
+
+    /**
+     * @return NoAuthMockConnector|NoAuthConnector
+     */
+    public function buildOpenConnector()
+    {
+        if ($this->connection === 'sandbox') {
+            $connector = new NoAuthMockConnector($this->client);
+            if (!isset($this->responses['open'])) {
+                throw new \RuntimeException("You requested sandbox environment for open connector, but you haven't defined any responses in app/config/responses.yml");
+            }
+            $connector->setResponses($this->responses['open']);
+            return $connector;
+        } else {
+            return new NoAuthConnector($this->client);
+        }
     }
 
     protected function buildConnector($provider, array $params)

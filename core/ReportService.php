@@ -88,6 +88,10 @@ class ReportService
         $connectorService = $this->container->get('connector_service');
         $connectors = $connectorService->getConnectors();
         $this->report->setConnectors($connectors);
+
+        $openConnector = $this->container->get('connector_service')->buildOpenConnector();
+        $this->report->setOpenConnector($openConnector);
+        $this->report->setSentiment(new Sentiment());
     }
 
     /**
