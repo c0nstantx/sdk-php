@@ -62,4 +62,39 @@ trait ConnectorTrait
 
         return strtolower(str_replace('Connector', '', $reflection->getShortName()));
     }
+
+    /**
+     * Get latest call headers
+     *
+     * @return array
+     */
+    public function getLastHeaders()
+    {
+        $lastResponse = $this->client->getLastResponse();
+        if ($lastResponse) {
+            $headers = $lastResponse->getHeaders();
+            return $this->parseHeaders($headers);
+        }
+        return [];
+    }
+
+    /**
+     * Parse response headers
+     *
+     * @param array $headers
+     * @return array
+     */
+    protected function parseHeaders(array $headers)
+    {
+        $parsedHeaders = [];
+        foreach($headers as $header) {
+            $headerParts = explode(':', $header);
+            if (count($headerParts) === 2) {
+                $parsedHeaders[$headerParts[0]] = $headerParts[1];
+            } else {
+                $parsedHeaders[$header] = true;
+            }
+        }
+        return $parsedHeaders;
+    }
 }
