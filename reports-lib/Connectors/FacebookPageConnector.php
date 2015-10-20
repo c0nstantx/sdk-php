@@ -5,6 +5,7 @@
  * <http://www.rocketgraph.com>.
  */
 namespace RAM\Connectors;
+use League\OAuth2\Client\Token\AccessToken;
 
 /**
  * Description of FacebookPageConnector.
@@ -76,7 +77,7 @@ class FacebookPageConnector extends FacebookConnector
                     $this->pageId = $parts[0];
                     $this->pageName = $parts[1];
                     $this->pageToken = $parts[2];
-                    $this->token->accessToken = $this->pageToken;
+                    $this->setToken(new AccessToken(['access_token' => $this->pageToken]));
                 }
             }
         }

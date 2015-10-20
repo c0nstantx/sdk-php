@@ -62,7 +62,7 @@ class FacebookConnectorTest extends \PHPUnit_Framework_TestCase
         $this->authUrl = 'http://rocketgraph.com';
         $this->assertEquals('http://rocketgraph.com&display=popup', $this->connector->retrieveAuthUrl());
 
-        $this->assertEquals('https://www.facebook.com/v2.2/dialog/oauth', $this->connector->urlAuthorize());
-        $this->assertEquals('https://graph.facebook.com/v2.2/oauth/access_token', $this->connector->urlAccessToken());
+        $this->assertEquals('https://www.facebook.com/v2.2/dialog/oauth', $this->connector->getBaseAuthorizationUrl());
+        $this->assertEquals('https://graph.facebook.com/v2.2/oauth/access_token', $this->connector->getBaseAccessTokenUrl([]));
     }
 }

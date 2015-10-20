@@ -70,21 +70,26 @@ class SoundcloudConnector extends Oauth2Connector
     }
 
     /**
-     * Get the URL that this provider uses to begin authorization.
+     * Returns the base URL for authorizing a client.
+     *
+     * Eg. https://oauth.service.com/authorize
      *
      * @return string
      */
-    public function urlAuthorize()
+    public function getBaseAuthorizationUrl()
     {
         return 'https://soundcloud.com/connect';
     }
 
     /**
-     * Get the URL that this provider users to request an access token.
+     * Returns the base URL for requesting an access token.
      *
+     * Eg. https://oauth.service.com/token
+     *
+     * @param array $params
      * @return string
      */
-    public function urlAccessToken()
+    public function getBaseAccessTokenUrl(array $params)
     {
         return 'https://soundcloud.com/oauth2/token';
     }

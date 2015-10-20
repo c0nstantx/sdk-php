@@ -14,7 +14,7 @@
   "require": {
     "php": ">=5.5.0",
     "symfony/symfony": "2.7.*",
-    "league/oauth2-client": "0.10.*",
+    "league/oauth2-client": "^1.0",
     "league/oauth1-client": "~1.0",
     "sensio/buzz-bundle": "dev-master"
   },

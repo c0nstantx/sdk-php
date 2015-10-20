@@ -7,6 +7,7 @@
 namespace RAM\Connectors;
 
 use Buzz\Browser;
+use Psr\Http\Message\ResponseInterface;
 use RG\Oauth2Connector;
 
 /**
@@ -74,22 +75,44 @@ class FacebookConnector extends Oauth2Connector
     }
 
     /**
-     * Get the URL that this provider uses to begin authorization.
+     * Returns the base URL for authorizing a client.
+     *
+     * Eg. https://oauth.service.com/authorize
      *
      * @return string
      */
-    public function urlAuthorize()
+    public function getBaseAuthorizationUrl()
     {
         return 'https://www.facebook.com/'.$this->graphApiVersion.'/dialog/oauth';
     }
 
     /**
-     * Get the URL that this provider users to request an access token.
+     * Returns the base URL for requesting an access token.
      *
+     * Eg. https://oauth.service.com/token
+     *
+     * @param array $params
      * @return string
      */
-    public function urlAccessToken()
+    public function getBaseAccessTokenUrl(array $params)
     {
         return 'https://graph.facebook.com/'.$this->graphApiVersion.'/oauth/access_token';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getContentType(ResponseInterface $response)
+    {
+        $type = parent::getContentType($response);
+        // Fix for Facebook's pseudo-JSONP support
+        if (strpos($type, 'javascript') !== false) {
+            return 'application/json';
+        }
+        // Fix for Facebook's pseudo-urlencoded support
+        if (strpos($type, 'plain') !== false) {
+            return 'application/x-www-form-urlencoded';
+        }
+        return $type;
     }
 }

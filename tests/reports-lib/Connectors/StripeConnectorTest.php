@@ -83,7 +83,7 @@ class StripeConnectorTest extends \PHPUnit_Framework_TestCase
         $this->authUrl = 'http://rocketgraph.com';
         $this->assertEquals('http://rocketgraph.com&display=popup', $this->connector->retrieveAuthUrl());
 
-        $this->assertEquals('https://connect.stripe.com/oauth/authorize', $this->connector->urlAuthorize());
-        $this->assertEquals('https://connect.stripe.com/oauth/token', $this->connector->urlAccessToken());
+        $this->assertEquals('https://connect.stripe.com/oauth/authorize', $this->connector->getBaseAuthorizationUrl());
+        $this->assertEquals('https://connect.stripe.com/oauth/token', $this->connector->getBaseAccessTokenUrl([]));
     }
 }
