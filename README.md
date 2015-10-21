@@ -12,15 +12,28 @@ Prerequisites
 2. Composer (see [here][2] how to install composer)
 
 Installation
---------------
+------------
 
-1. Pull the repository
+1. Clone the repository
 
-    `git pull git@github.com:rocketgraph/sdk-php.git`
+    `git clone git@github.com:rocketgraph/sdk-php.git`
 
 2. Install dependencies via composer
 
     `composer install`
+
+
+Update
+------
+
+1. Pull the repository
+
+    `git pull origin master`
+
+2. Install dependencies via composer
+
+    `composer update`
+
 
 Configuration
 ------------------
