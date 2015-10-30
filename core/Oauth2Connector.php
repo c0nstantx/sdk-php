@@ -49,7 +49,7 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
     public function get($path, $options = array())
     {
         $url = $this->buildUrlFromPath($path);
-        $options['access_token'] = $this->token->accessToken;
+        $options['access_token'] = $this->token->getToken();
         $query = http_build_query($options);
         if ($query !== '') {
             $url .= "?$query";
