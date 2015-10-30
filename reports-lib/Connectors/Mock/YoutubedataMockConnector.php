@@ -9,11 +9,11 @@ use RAM\Connectors\YoutubeDataConnector;
 use RG\Traits\MockConnectorTrait;
 
 /**
- * Description of YoutubeDataMockConnector
+ * Description of YoutubedataMockConnector
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class YoutubesataMockConnector extends YoutubeDataConnector
+class YoutubedataMockConnector extends YoutubeDataConnector
 {
     use MockConnectorTrait;
 }
