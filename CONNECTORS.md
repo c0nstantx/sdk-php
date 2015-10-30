@@ -13,3 +13,9 @@ Available Connectors
 (key: `dribbble`)
 - **Soundcloud**
 (key: `soundcloud`)
+- **Google+**
+(key: `google`)
+- **Youtube Data**
+(key: `youtubedata`)
+- **Youtube Analytics**
+(key: `youtubeanalytics`)
