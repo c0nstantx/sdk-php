@@ -9,6 +9,7 @@ namespace RAM\Connectors;
 use Buzz\Browser;
 use Psr\Http\Message\ResponseInterface;
 use RG\Oauth2Connector;
+use RG\Proxy;
 
 /**
  * Description of FacebookConnector.
@@ -36,9 +37,9 @@ class FacebookConnector extends Oauth2Connector
 
     public $responseType = 'string';
 
-    public function __construct(Browser $httpClient)
+    public function __construct(Browser $httpClient, Proxy $proxy)
     {
-        parent::__construct($httpClient);
+        parent::__construct($httpClient, $proxy);
         if (null === $this->graphApiVersion) {
             $this->graphApiVersion = self::DEFAULT_GRAPH_VERSION;
         }

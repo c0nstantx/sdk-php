@@ -7,4 +7,5 @@
 /composer.lock
 /coverage
 /storage
+/proxy
 .DS_Store

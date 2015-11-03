@@ -18,28 +18,6 @@ class SoundcloudConnector extends Oauth2Connector
 {
     const API_HOST = 'https://api.soundcloud.com';
 
-    public function __construct(Browser $httpClient)
-    {
-        $this->authorizationHeader = 'Bearer';
-        parent::__construct($httpClient);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function get($path, $options = array())
-    {
-        $url = $this->buildUrlFromPath($path);
-        $query = http_build_query($options);
-        if ($query !== '') {
-            $url .= "?$query";
-        }
-        $headers = $this->buildHeaders($url);
-        $response = $this->client->get($url, $headers);
-
-        return json_decode($response->getContent());
-    }
-
     /**
      * {@inheritdoc}
      */

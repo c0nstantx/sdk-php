@@ -18,12 +18,17 @@ interface ConnectorInterface
     /**
      * Get an API call response.
      *
-     * @param $path
-     * @param array $options
+     * @param string $path          The requested API path
+     * @param array $options        Extra options for the requested path
+     * @param bool $array           Return the results as an associative array
+     * @param bool $useProxy        Use proxy for the results
+     * @param bool $permanent       Persist permanent the call to proxy (Never update)
+     * @param bool $force           Force update of proxy record for the call
      *
      * @return \Buzz\Message\MessageInterface
      */
-    public function get($path, $options = array());
+    public function get($path, $options = array(), $array = false, $useProxy = true,
+                        $permanent = false, $force = false);
 
     /**
      * Build absolute URL from path.

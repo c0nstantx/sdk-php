@@ -49,6 +49,13 @@ class Storage
         return null;
     }
 
+    final public function delete($key)
+    {
+        $hash = $this->generateHash($key);
+        $file = $this->storagePath.'/'.$hash.'.json';
+        @unlink($file);
+    }
+
     protected function generateHash($key)
     {
         return md5(serialize($key));

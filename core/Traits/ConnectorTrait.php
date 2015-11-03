@@ -97,4 +97,20 @@ trait ConnectorTrait
         }
         return $parsedHeaders;
     }
+
+    /**
+     * @param $path
+     * @param array $options
+     *
+     * @return string
+     */
+    protected function buildUrl($path, $options = [])
+    {
+        $url = $this->buildUrlFromPath($path);
+        $query = http_build_query($options);
+        if ($query !== '') {
+            $url .= "?$query";
+        }
+        return $url;
+    }
 }

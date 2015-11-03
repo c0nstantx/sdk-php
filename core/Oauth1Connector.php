@@ -12,6 +12,7 @@ use League\OAuth1\Client\Server\Server;
 use RG\Interfaces\ConnectorInterface;
 use RG\Traits\ConnectorTrait;
 use RG\Connection;
+use RG\Traits\ProxyConnectorTrait;
 
 /**
  * Description of Oauth1Connector.
@@ -22,11 +23,12 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
 {
     protected $session;
 
-    use ConnectorTrait;
+    use ConnectorTrait, ProxyConnectorTrait;
 
-    public function __construct(Browser $httpClient)
+    public function __construct(Browser $httpClient, Proxy $proxy)
     {
         $this->client = $httpClient;
+        $this->proxy = $proxy;
         $this->userAgent = 'Rocketgraph-engine';
     }
 
@@ -45,17 +47,18 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
     /**
      * {@inheritdoc}
      */
-    public function get($path, $options = array())
+    public function get($path, $options = array(), $array = false, $useProxy = true,
+                        $permanent = false, $force = false)
     {
-        $url = $this->buildUrlFromPath($path);
-        $query = http_build_query($options);
-        if ($query !== '') {
-            $url .= "?$query";
-        }
+        $url = $this->buildUrl($path, $options);
         $headers = $this->buildHeaders($url);
+
+        if ($useProxy) {
+            return $this->getFromProxy($url, $headers, $permanent, $force);
+        }
         $response = $this->client->get($url, $headers);
 
-        return json_decode($response->getContent());
+        return json_decode($response->getContent(), $array);
     }
 
     /**

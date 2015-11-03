@@ -3,6 +3,7 @@ parameters:
     show_errors: true
     report_assets: assets
     storage_path: storage
+    proxy_path: proxy
 
 sensio_buzz:
     client_timeout: 180

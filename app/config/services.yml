@@ -7,17 +7,20 @@ parameters:
 
 services:
     connector_service:
-        class: %connector_service.class%
-        arguments: [%connectors%, @buzz, %connection%, %responses%]
+        class: RG\ConnectorService
+        arguments: [%connectors%, @buzz, @proxy_service, %connection%, %responses%]
     report_service:
-        class: %report_service.class%
+        class: RG\ReportService
         arguments: [@service_container]
     event_dispatcher:
-        class: %event_dispatcher.class%
+        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
         arguments: [@service_container]
     report_templating_helper:
-        class: %report_templating_helper.class%
+        class: RG\RenderEngine\ReportTemplatingHelper
         arguments: [%report_assets%, %web_path%]
     storage_service:
-        class: %storage_service.class%
+        class: RG\Storage
         arguments: [%storage_path%]
+    proxy_service:
+        class: RG\Proxy
+        arguments: [%proxy_path%]
