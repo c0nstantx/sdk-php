@@ -19,3 +19,5 @@ Available Connectors
 (key: `youtubedata`)
 - **Youtube Analytics**
 (key: `youtubeanalytics`)
+- **QuickBooks**
+(key: `quickbooks`)

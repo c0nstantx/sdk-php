@@ -124,6 +124,8 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
         $header = $this->protocolHeader('GET', $url, $this->token);
         $authorizationHeader = array('Authorization' => $header);
 
-        return $this->buildHttpClientHeaders($authorizationHeader);
+        $headers = $this->buildHttpClientHeaders($authorizationHeader);
+        $headers['Accept'] = 'application/json';
+        return $headers;
     }
 }

@@ -8,6 +8,7 @@
 namespace Tests\RAM\Connectors;
 
 use RAM\Connectors\FacebookConnector;
+use RG\Proxy;
 
 /**
  * Description of FacebookConnectorTest.
@@ -28,8 +29,9 @@ class FacebookConnectorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $proxy = new Proxy('path');
         $this->connector = $this->getMockBuilder('RAM\Connectors\FacebookConnector')
-            ->setConstructorArgs([$browser])
+            ->setConstructorArgs([$browser, $proxy])
             ->setMethods([
                 'get',
                 'getAuthorizationUrl'

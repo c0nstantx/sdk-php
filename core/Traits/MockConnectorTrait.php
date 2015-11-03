@@ -29,7 +29,8 @@ trait MockConnectorTrait
      *
      * @return mixed
      */
-    public function get($path, $options = array())
+    public function get($path, $options = array(), $array = false, $useProxy = true,
+                        $permanent = false, $force = false)
     {
         $query = http_build_query($options);
         if ($query !== '') {

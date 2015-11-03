@@ -107,7 +107,9 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
      */
     protected function buildHeaders()
     {
-        return $this->getHeaders($this->token);
+        $headers = $this->getHeaders($this->token);
+        $headers['Accept'] = 'application/json';
+        return $headers;
     }
 
     /**

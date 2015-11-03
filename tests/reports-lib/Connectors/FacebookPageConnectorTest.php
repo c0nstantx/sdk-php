@@ -8,7 +8,7 @@
 namespace Tests\RAM\Connectors;
 
 use League\OAuth2\Client\Token\AccessToken;
-use RAM\Connectors\FacebookConnector;
+use RG\Proxy;
 
 /**
  * Description of FacebookPageConnectorTest.
@@ -27,8 +27,9 @@ class FacebookPageConnectorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $proxy = new Proxy('path');
         $this->connector = $this->getMockBuilder('RAM\Connectors\FacebookPageConnector')
-            ->setConstructorArgs([$browser])
+            ->setConstructorArgs([$browser, $proxy])
             ->setMethods([
                 'get',
             ])

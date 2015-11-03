@@ -6,6 +6,7 @@
 
 namespace Tests\RAM\Connectors;
 use RAM\Connectors\TwitterConnector;
+use RG\Proxy;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,8 +28,9 @@ class TwitterConnectorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $proxy = new Proxy('path');
         $this->connector = $this->getMockBuilder('RAM\Connectors\TwitterConnector')
-            ->setConstructorArgs([$browser])
+            ->setConstructorArgs([$browser, $proxy])
             ->setMethods([
                 'getAuthorizationUrl',
                 'get'
