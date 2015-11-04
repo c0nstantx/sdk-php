@@ -6,7 +6,6 @@
  */
 namespace RAM\Connectors;
 
-use Buzz\Browser;
 use RG\Oauth2Connector;
 
 /**

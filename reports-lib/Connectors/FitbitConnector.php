@@ -9,16 +9,25 @@ namespace RAM\Connectors;
 use RG\Oauth2Connector;
 
 /**
- * Description of StripeConnector.
+ * Description of FitbitConnector.
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class StripeConnector extends Oauth2Connector
+class FitbitConnector extends Oauth2Connector
 {
-    const API_HOST = 'https://api.stripe.com';
+    const API_HOST = 'https://api.fitbit.com';
 
-    const API_VERSION = 'v1';
+    const API_VERSION = '1';
 
+    protected $scopes = [
+        'activity',
+        'nutrition',
+        'profile',
+        'settings',
+        'sleep',
+        'social',
+        'weight'
+    ];
     /**
      * {@inheritdoc}
      */
@@ -33,9 +42,9 @@ class StripeConnector extends Oauth2Connector
      */
     public function getDisplayName()
     {
-        $profile = $this->get('account');
+        $profile = $this->get(sprintf('user/%s/profile.json', $this->getUserId()));
         if ($profile) {
-            return $profile->display_name;
+            return $profile->displayName;
         }
         return '';
     }
@@ -46,7 +55,16 @@ class StripeConnector extends Oauth2Connector
     public function retrieveAuthUrl()
     {
         $authUrl = $this->getAuthorizationUrl();
-        return $authUrl.'&display=popup';
+        return $authUrl.'&scope='.implode(" ", $this->scopes);
+    }
+
+    /**
+     * Returns an encoded user's id
+     * If '-' returned info for current logged in user is fetched
+     * @return string
+     */
+    public function getUserId(){
+        return '-';
     }
 
     /**
@@ -58,7 +76,7 @@ class StripeConnector extends Oauth2Connector
      */
     public function getBaseAuthorizationUrl()
     {
-        return 'https://connect.stripe.com/oauth/authorize';
+        return 'https://www.fitbit.com/oauth2/authorize';
     }
 
     /**
@@ -69,8 +87,8 @@ class StripeConnector extends Oauth2Connector
      * @param array $params
      * @return string
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params = [])
     {
-        return 'https://connect.stripe.com/oauth/token';
+        return 'https://api.fitbit.com/oauth2/token';
     }
 }

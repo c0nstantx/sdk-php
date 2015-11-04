@@ -21,3 +21,5 @@ Available Connectors
 (key: `youtubeanalytics`)
 - **QuickBooks**
 (key: `quickbooks`)
+- **Fitbit**
+(key: `fitbit`)

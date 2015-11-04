@@ -13,7 +13,6 @@ use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 use RG\Interfaces\ConnectorInterface;
-use RG\Connection;
 use RG\Traits\ConnectorTrait;
 use RG\Traits\ProxyConnectorTrait;
 
@@ -25,6 +24,8 @@ use RG\Traits\ProxyConnectorTrait;
 abstract class Oauth2Connector extends AbstractProvider implements ConnectorInterface
 {
     use ConnectorTrait, ProxyConnectorTrait;
+
+    protected $scopes = [];
 
     public function __construct(Browser $httpClient, Proxy $proxy)
     {
