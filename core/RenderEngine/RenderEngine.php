@@ -5,7 +5,9 @@
  */
 
 namespace RG\RenderEngine;
+
 use RAM\BaseReport;
+use RG\Exception\ContentNotFoundException;
 use RG\Exception\ExtensionNotLoadedException;
 
 /**
@@ -55,11 +57,14 @@ class RenderEngine extends \Twig_Environment
      */
     public function transformAssetPaths($content)
     {
-        $doc = new \DOMDocument();
-        if (!$content) {
-            return '';
+        if (null === $content) {
+            throw new ContentNotFoundException('No content was found to be rendered');
         }
-        $doc->loadHTML($content);
+
+        libxml_use_internal_errors(true);
+        $doc = new \DOMDocument();
+        $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES'));
+
         $reportRouting = $this->extensionManager->findExtension('report_routing');
 
         if (null === $reportRouting) {
@@ -69,36 +74,41 @@ class RenderEngine extends \Twig_Environment
         /* Transform images */
         $images = $doc->getElementsByTagName('img');
         foreach($images as $image) {
-            $src = $image->getAttribute('src');
-            $src = $this->sanitizeAsset($src);
-            if ($this->assetNeedsTransform($src)) {
-                $src = $reportRouting->getPath($src);
-            }
-            $image->setAttribute('src', $src);
+            $this->prepareAsset($image, 'src', $reportRouting);
         }
 
         /* Transform styles */
         $styles = $doc->getElementsByTagName('link');
         foreach($styles as $style) {
-            $href = $style->getAttribute('href');
-            $href = $this->sanitizeAsset($href);
-            if ($this->assetNeedsTransform($href)) {
-                $href = $reportRouting->getPath($href);
-            }
-            $style->setAttribute('href', $href);
+            $this->prepareAsset($style, 'href', $reportRouting);
         }
 
         /* Transform scripts */
         $scripts = $doc->getElementsByTagName('script');
         foreach($scripts as $script) {
-            $src = $script->getAttribute('src');
-            $src = $this->sanitizeAsset($src);
-            if ($this->assetNeedsTransform($src)) {
-                $src = $reportRouting->getPath($src);
-            }
-            $script->setAttribute('src', $src);
+            $this->prepareAsset($script, 'src', $reportRouting);
         }
+
         return $doc->saveHTML();
+    }
+
+    /**
+     * @param \DOMElement $element
+     * @param string $attribute
+     * @param ReportRouting $reportRouting
+     */
+    protected function prepareAsset(\DOMElement $element, $attribute,
+                                    ReportRouting $reportRouting
+    )
+    {
+        $asset = $element->getAttribute($attribute);
+        if ($asset) {
+            $asset = $this->sanitizeAsset($asset);
+            if ($this->assetNeedsTransform($asset)) {
+                $asset = $reportRouting->getPath($asset);
+            }
+            $element->setAttribute($attribute, $asset);
+        }
     }
 
     /**

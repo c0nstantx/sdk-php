@@ -101,6 +101,7 @@ class Kernel
         $reportService->warmupReport();
         $report = $reportService->getReport();
         $response = new Response($report->run());
+
         return $response;
     }
 
