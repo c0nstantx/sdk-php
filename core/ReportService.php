@@ -160,7 +160,49 @@ class ReportService
             }
             $symlinkFolder = $assetsFolder.DIRECTORY_SEPARATOR.$className;
 
-            @symlink($reportPublic, $symlinkFolder);
+            if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+                $this->copyFolder($reportPublic, $symlinkFolder);
+            } else {
+                @symlink($reportPublic, $symlinkFolder);
+            }
+        }
+    }
+
+    /**
+     * Copy recursively a folder to another
+     *
+     * @param string $source
+     * @param string $destination
+     */
+    protected function copyFolder($source, $destination)
+    {
+        if (!file_exists($destination)) {
+            mkdir($destination, 0777, true);
+        }
+        $directory = new \DirectoryIterator($source);
+        foreach($directory as $dir) {
+            if (!$dir->isDot()) {
+                $asset = $dir->getPathname();
+                if (is_dir($asset)) {
+                    $this->copyFolder($asset, $destination.DIRECTORY_SEPARATOR.basename($asset));
+                } else {
+                    $this->copyFile($asset, $destination);
+                }
+            }
+        }
+    }
+
+    /**
+     * Copy a file to another folder
+     *
+     * @param string $file
+     * @param string $destinationFolder
+     */
+    protected function copyFile($file, $destinationFolder)
+    {
+        $destFile = $destinationFolder.DIRECTORY_SEPARATOR.basename($file);
+        if (!file_exists($destFile)) {
+            copy($file, $destFile);
         }
     }
 }

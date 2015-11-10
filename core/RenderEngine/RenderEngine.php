@@ -69,30 +69,46 @@ class RenderEngine extends \Twig_Environment
         /* Transform images */
         $images = $doc->getElementsByTagName('img');
         foreach($images as $image) {
-            $source = $image->getAttribute('src');
-            if ($this->assetNeedsTransform($source)) {
-                $image->setAttribute('src', $reportRouting->getPath($source));
+            $src = $image->getAttribute('src');
+            $src = $this->sanitizeAsset($src);
+            if ($this->assetNeedsTransform($src)) {
+                $src = $reportRouting->getPath($src);
             }
+            $image->setAttribute('src', $src);
         }
 
         /* Transform styles */
         $styles = $doc->getElementsByTagName('link');
         foreach($styles as $style) {
             $href = $style->getAttribute('href');
+            $href = $this->sanitizeAsset($href);
             if ($this->assetNeedsTransform($href)) {
-                $style->setAttribute('href', $reportRouting->getPath($href));
+                $href = $reportRouting->getPath($href);
             }
+            $style->setAttribute('href', $href);
         }
 
         /* Transform scripts */
         $scripts = $doc->getElementsByTagName('script');
         foreach($scripts as $script) {
             $src = $script->getAttribute('src');
+            $src = $this->sanitizeAsset($src);
             if ($this->assetNeedsTransform($src)) {
-                $script->setAttribute('src', $reportRouting->getPath($src));
+                $src = $reportRouting->getPath($src);
             }
+            $script->setAttribute('src', $src);
         }
         return $doc->saveHTML();
+    }
+
+    /**
+     * @param string $asset
+     *
+     * @return string
+     */
+    protected function sanitizeAsset($asset)
+    {
+        return str_replace('\\', '/', $asset);
     }
 
     /**
