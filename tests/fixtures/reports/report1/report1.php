@@ -18,6 +18,7 @@ class report1 extends RAM\BaseReport
     public function render()
     {
         $this->addStyle('css/style.css');
+        return 'content';
     }
 
     public function uninstall()
