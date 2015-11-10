@@ -22,6 +22,11 @@ Installation
 
     `composer install`
 
+3. SSL Certificate (**FOR WINDOWS USERS ONLY**)
+
+  Add the following line to your php.ini file:
+
+    `curl.cainfo="sdkpath/certs/cacert.pm"`
 
 Update
 ------

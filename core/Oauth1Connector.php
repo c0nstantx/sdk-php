@@ -54,7 +54,7 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
         $headers = $this->buildHeaders($url);
 
         if ($useProxy) {
-            return $this->getFromProxy($url, $headers, $permanent, $force);
+            return $this->getFromProxy($path, $options, $array ,$permanent, $force);
         }
         $response = $this->client->get($url, $headers);
 
