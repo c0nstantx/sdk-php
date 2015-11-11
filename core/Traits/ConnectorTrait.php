@@ -88,11 +88,13 @@ trait ConnectorTrait
     {
         $parsedHeaders = [];
         foreach($headers as $header) {
-            $headerParts = explode(':', $header);
-            if (count($headerParts) === 2) {
-                $parsedHeaders[$headerParts[0]] = $headerParts[1];
+            $firstSeparator = strpos($header, ':');
+            if ($firstSeparator) {
+                $key = substr($header, 0, $firstSeparator);
+                $value = substr($header, $firstSeparator+1);
+                $parsedHeaders[strtolower($key)] = strtolower(trim($value));
             } else {
-                $parsedHeaders[$header] = true;
+                $parsedHeaders[strtolower($header)] = true;
             }
         }
         return $parsedHeaders;

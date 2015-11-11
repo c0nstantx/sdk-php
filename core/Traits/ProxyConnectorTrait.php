@@ -42,7 +42,7 @@ trait ProxyConnectorTrait
                 $data = [
                     'data' => $response,
                     'url' => $url,
-                    'headers' => $headers,
+                    'headers' => $this->getLastHeaders(),
                     'timestamp' => $now->getTimestamp(),
                     'ttl' => $permanent ? null : 86400,
                     'permanent' => $permanent
