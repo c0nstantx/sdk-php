@@ -149,6 +149,13 @@ For example, if you have installed the sdk to your `localhost` root folder, you 
 
 For more details on how to create a report read the [Developer's Manual][9].
 
+Run server
+----------
+
+You can run directly the SDK using PHP build-in web server:
+
+    php -S localhost:80 -t web/
+    
 
 Aggregation
 ------------
