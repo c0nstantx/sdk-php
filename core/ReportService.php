@@ -118,7 +118,8 @@ class ReportService
         $tokenized = new Tokenizer($classPath);
         return
             $tokenized->isExtended()
-            && $tokenized->getBaseClass() === 'RAM\BaseReport';
+            && ($tokenized->getBaseClass() === 'RAM\BaseReport'
+            || $tokenized->getBaseClass() === '\RAM\BaseReport');
     }
 
     /**
