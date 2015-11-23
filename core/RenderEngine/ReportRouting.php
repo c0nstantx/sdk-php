@@ -28,6 +28,14 @@ class ReportRouting extends \Twig_Extension
     }
 
     /**
+     * @return BaseReport
+     */
+    public function getReport()
+    {
+        return $this->report;
+    }
+
+    /**
      * Get extension name
      *
      * @return string

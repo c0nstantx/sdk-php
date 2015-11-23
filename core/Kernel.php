@@ -6,9 +6,6 @@
 
 namespace RG;
 use Sensio\Bundle\BuzzBundle\SensioBuzzBundle;
-use Symfony\Bundle\AsseticBundle\AsseticBundle;
-use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
@@ -76,6 +73,8 @@ class Kernel
 
         /* Load services */
         $loader->load('services.yml');
+
+        $this->registerListeners();
     }
 
     /**
@@ -103,6 +102,46 @@ class Kernel
         $response = new Response($report->run());
 
         return $response;
+    }
+
+    /**
+     * Register listers to event dispatcher
+     */
+    protected function registerListeners()
+    {
+        $dispatcher = $this->container->get('event_dispatcher');
+
+        $listeners = $this->getRegisteredListeners();
+
+        foreach($listeners as $listener) {
+            $dispatcher->addListenerService($listener['event'], [
+                $listener['id'],
+                $listener['method']
+            ]);
+        }
+    }
+
+    /**
+     * Get registered listeners from services
+     *
+     * @return array
+     */
+    protected function getRegisteredListeners()
+    {
+        $serviceDefinitions = $this->container->getDefinitions();
+
+        $listeners = [];
+        foreach($serviceDefinitions as $id => $definition) {
+            $tags = $definition->getTags();
+            if (isset($tags['kernel.event_listener'])) {
+                foreach($tags['kernel.event_listener'] as $listener) {
+                    $listener['id'] = $id;
+                    $listeners[] = $listener;
+                }
+            }
+        }
+
+        return $listeners;
     }
 
     /**

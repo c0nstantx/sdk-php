@@ -17,3 +17,9 @@ services:
     proxy_service:
         class: RG\Proxy
         arguments: [%proxy_path%]
+    post_render_report_listener:
+        class: RG\EventListener\PostRenderReportListener
+        tags:
+            - { name: kernel.event_listener, event: report.post_render, method: onReportRender }
+        arguments: [@report_templating_helper]
+

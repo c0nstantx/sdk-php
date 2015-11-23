@@ -7,6 +7,7 @@ class twitter_report extends RAM\BaseReport
     {
         $this->addStyle('css/bootstrap.min.css');
         $this->addStyle('css/style.css');
+        $this->addScript('scripts/script.js');
         $twitterConnector = $this->getConnector('twitter');
         $parser = new TwitterParser($twitterConnector);
         $data = $parser->getHandleData();
