@@ -73,8 +73,8 @@ class ReportRouting extends \Twig_Extension
             return $this->getUrl($name, $parameters);
         }
 
-        return $this->templatingHelper->getReportAssetPath($this->report)
-        .DIRECTORY_SEPARATOR.$name;
+        return $this->templatingHelper
+            ->getReportAssetPath($this->report).'/'.$name;
     }
 
     /**

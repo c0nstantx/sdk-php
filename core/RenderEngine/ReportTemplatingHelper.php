@@ -59,7 +59,7 @@ class ReportTemplatingHelper
      */
     public function getReportAssetPath(BaseReport $report)
     {
-        return $this->templatingHelper->getUrl($this->reportAssetsFolder
-            .DIRECTORY_SEPARATOR.get_class($report));
+        return $this->templatingHelper
+            ->getUrl($this->reportAssetsFolder.'/'.get_class($report));
     }
 }
