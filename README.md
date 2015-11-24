@@ -26,7 +26,7 @@ Installation
 
   Add the following line to your php.ini file:
 
-    `curl.cainfo="sdkpath/certs/cacert.pm"`
+    `curl.cainfo="sdkpath/certs/cacert.pem"`
 
 Update
 ------
