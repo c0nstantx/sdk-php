@@ -51,9 +51,9 @@ class PostRenderReportListener
             /* If no head is created, add it at the top of HTML */
             $head = $doc->createElement('head');
             $html = $doc->getElementsByTagName('html');
-            $html[0]->insertBefore($head, $html[0]->firstChild);
+            $html->item(0)->insertBefore($head, $html->item(0)->firstChild);
         } else {
-            $head = $heads[0];
+            $head = $heads->item(0);
         }
         foreach ($styles as $style) {
             $url = $reportRouting->getUrl($style);
@@ -86,9 +86,9 @@ class PostRenderReportListener
             /* If no head is created, add it at the top of HTML */
             $head = $doc->createElement('head');
             $html = $doc->getElementsByTagName('html');
-            $html[0]->insertBefore($head, $html[0]->firstChild);
+            $html->item(0)->insertBefore($head, $html->item(0)->firstChild);
         } else {
-            $head = $heads[0];
+            $head = $heads->item(0);
         }
         foreach ($scripts as $script) {
             $url = $reportRouting->getUrl($script);
