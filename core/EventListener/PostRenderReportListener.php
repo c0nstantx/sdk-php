@@ -47,8 +47,11 @@ class PostRenderReportListener
         $doc->loadHTML($content);
 
         $heads = $doc->getElementsByTagName('head');
-        if ($heads->length == 0) {
+        if ($heads->length === 0) {
+            /* If no head is created, add it at the top of HTML */
             $head = $doc->createElement('head');
+            $html = $doc->getElementsByTagName('html');
+            $html[0]->insertBefore($head, $html[0]->firstChild);
         } else {
             $head = $heads[0];
         }
@@ -80,7 +83,10 @@ class PostRenderReportListener
 
         $heads = $doc->getElementsByTagName('head');
         if ($heads->length == 0) {
+            /* If no head is created, add it at the top of HTML */
             $head = $doc->createElement('head');
+            $html = $doc->getElementsByTagName('html');
+            $html[0]->insertBefore($head, $html[0]->firstChild);
         } else {
             $head = $heads[0];
         }
