@@ -40,7 +40,7 @@ class PostRenderReportListener
     protected function setStyles(ReportRouting $reportRouting)
     {
         $report = $reportRouting->getReport();
-        $styles = array_reverse($report->getStyles());
+        $styles = $report->getStyles();
 
         $content = $report->getResponse();
         $doc = new \DOMDocument();
@@ -75,7 +75,7 @@ class PostRenderReportListener
     protected function setScripts(ReportRouting $reportRouting)
     {
         $report = $reportRouting->getReport();
-        $scripts = array_reverse($report->getScripts());
+        $scripts = $report->getScripts();
 
         $content = $report->getResponse();
         $doc = new \DOMDocument();
