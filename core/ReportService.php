@@ -202,8 +202,6 @@ class ReportService
     protected function copyFile($file, $destinationFolder)
     {
         $destFile = $destinationFolder.DIRECTORY_SEPARATOR.basename($file);
-        if (!file_exists($destFile)) {
-            copy($file, $destFile);
-        }
+        copy($file, $destFile);
     }
 }
