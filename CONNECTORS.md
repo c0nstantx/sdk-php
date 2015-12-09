@@ -23,3 +23,5 @@ Available Connectors
 (key: `quickbooks`)
 - **Fitbit**
 (key: `fitbit`)
+- **Github**
+(key: `github`)

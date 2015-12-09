@@ -16,6 +16,19 @@ trait ProxyConnectorTrait
     protected $proxy;
 
     /**
+     * Get latest call headers
+     *
+     * @return array
+     */
+    public function getLastProxyHeaders()
+    {
+        if ($this->lastProxyHeaders) {
+            return $this->parseHeaders($this->lastProxyHeaders);
+        }
+        return [];
+    }
+
+    /**
      * @param $path
      * @param array $options
      * @param bool $array
@@ -56,6 +69,7 @@ trait ProxyConnectorTrait
             $this->proxy->delete($key);
             return $this->getFromProxy($path, $options, $array, $permanent, $force);
         }
+        $this->lastProxyHeaders = json_decode(json_encode($storedCall->headers), true);
         return json_decode(json_encode($storedCall->data), $array);
     }
 

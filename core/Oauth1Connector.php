@@ -23,13 +23,16 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
 {
     protected $session;
 
-    use ConnectorTrait, ProxyConnectorTrait;
+    use ProxyConnectorTrait;
+    use ConnectorTrait {
+        ConnectorTrait::__construct as private __cConstruct;
+    }
 
     public function __construct(Browser $httpClient, Proxy $proxy)
     {
+        $this->__cConstruct();
         $this->client = $httpClient;
         $this->proxy = $proxy;
-        $this->userAgent = 'Rocketgraph-engine';
     }
 
     /**
@@ -55,10 +58,17 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
 
         if ($useProxy) {
             return $this->getFromProxy($path, $options, $array ,$permanent, $force);
+        } else {
+            $response = $this->client->get($url, $headers);
+            $lastResponse = $this->client->getLastResponse();
+            if ($lastResponse) {
+                $headers = $lastResponse->getHeaders();
+                $this->lastHeaders = $this->parseHeaders($headers);
+            } else {
+                $this->lastHeaders = [];
+            }
+            return json_decode($response->getContent(), $array);
         }
-        $response = $this->client->get($url, $headers);
-
-        return json_decode($response->getContent(), $array);
     }
 
     /**

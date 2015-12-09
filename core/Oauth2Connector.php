@@ -23,12 +23,16 @@ use RG\Traits\ProxyConnectorTrait;
  */
 abstract class Oauth2Connector extends AbstractProvider implements ConnectorInterface
 {
-    use ConnectorTrait, ProxyConnectorTrait;
+    use ProxyConnectorTrait;
+    use ConnectorTrait {
+        ConnectorTrait::__construct as private __cConstruct;
+    }
 
     protected $scopes = [];
 
     public function __construct(Browser $httpClient, Proxy $proxy)
     {
+        $this->__cConstruct();
         $this->client = $httpClient;
         $this->proxy = $proxy;
     }
@@ -58,10 +62,18 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
 
         if ($useProxy) {
             return $this->getFromProxy($path, $options, $array ,$permanent, $force);
+        } else {
+            $response = $this->client->get($url, $headers);
+            $lastResponse = $this->client->getLastResponse();
+            if ($lastResponse) {
+                $headers = $lastResponse->getHeaders();
+                $this->lastHeaders = $this->parseHeaders($headers);
+            } else {
+                $this->lastHeaders = [];
+            }
+            return json_decode($response->getContent(), $array);
         }
-        $response = $this->client->get($url, $headers);
 
-        return json_decode($response->getContent(), $array);
     }
 
     /**

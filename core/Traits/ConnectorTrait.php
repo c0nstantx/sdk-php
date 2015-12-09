@@ -24,6 +24,13 @@ trait ConnectorTrait
 
     protected $client;
 
+    protected $lastHeaders = [];
+
+    public function __construct()
+    {
+        $this->userAgent = 'Rocketgraph-engine';
+    }
+
     public function __toString()
     {
         return $this->connectorName;
@@ -70,12 +77,7 @@ trait ConnectorTrait
      */
     public function getLastHeaders()
     {
-        $lastResponse = $this->client->getLastResponse();
-        if ($lastResponse) {
-            $headers = $lastResponse->getHeaders();
-            return $this->parseHeaders($headers);
-        }
-        return [];
+        return $this->lastHeaders;
     }
 
     /**
@@ -114,5 +116,19 @@ trait ConnectorTrait
             $url .= "?$query";
         }
         return $url;
+    }
+
+    /**
+     * Returns the default headers used by this provider.
+     *
+     * Typically this is used to set 'Accept' or 'Content-Type' headers.
+     *
+     * @return array
+     */
+    protected function getDefaultHeaders()
+    {
+        return [
+            'User-Agent' => $this->userAgent
+        ];
     }
 }
