@@ -26,6 +26,18 @@ trait ConnectorTrait
 
     protected $lastHeaders = [];
 
+    /**
+     * Sanitize path before passing it to url building
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public static function sanitizePath($path)
+    {
+        return ltrim($path, '/');
+    }
+
     public function __construct()
     {
         $this->userAgent = 'Rocketgraph-engine';
@@ -110,6 +122,7 @@ trait ConnectorTrait
      */
     protected function buildUrl($path, $options = [])
     {
+        $path = self::sanitizePath($path);
         $url = $this->buildUrlFromPath($path);
         $query = http_build_query($options);
         if ($query !== '') {
