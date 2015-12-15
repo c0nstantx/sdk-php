@@ -17,6 +17,8 @@ class SoundcloudConnector extends Oauth2Connector
 {
     const API_HOST = 'https://api.soundcloud.com';
 
+    protected $tokenName = 'oauth_token';
+
     /**
      * {@inheritdoc}
      */

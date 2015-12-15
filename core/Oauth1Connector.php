@@ -50,16 +50,20 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
     /**
      * {@inheritdoc}
      */
-    public function get($path, $options = array(), $array = false, $useProxy = true,
-                        $permanent = false, $force = false)
+    public function get($path, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
     {
+        $path = self::sanitizePath($path);
         $url = $this->buildUrl($path, $options);
-        $headers = $this->buildHeaders($url);
+        $requestHeaders = $this->buildHeaders($url, $headers);
+        $requestHeaders = array_merge($requestHeaders, $headers);
 
         if ($useProxy) {
-            return $this->getFromProxy($path, $options, $array ,$permanent, $force);
+            return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
         } else {
-            $response = $this->client->get($url, $headers);
+            $response = $this->client->get($url, $requestHeaders);
             $lastResponse = $this->client->getLastResponse();
             if ($lastResponse) {
                 $headers = $lastResponse->getHeaders();
@@ -126,16 +130,18 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
      * Build header for the given URL.
      *
      * @param string $url
+     * @param array  $extraHeaders
      *
      * @return array
      */
-    protected function buildHeaders($url)
+    protected function buildHeaders($url, array $extraHeaders = [])
     {
         $header = $this->protocolHeader('GET', $url, $this->token);
         $authorizationHeader = array('Authorization' => $header);
 
         $headers = $this->buildHttpClientHeaders($authorizationHeader);
         $headers['Accept'] = 'application/json';
-        return $headers;
+
+        return array_merge($headers, $extraHeaders);
     }
 }

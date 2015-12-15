@@ -29,9 +29,12 @@ trait MockConnectorTrait
      *
      * @return mixed
      */
-    public function get($path, $options = array(), $array = false, $useProxy = true,
-                        $permanent = false, $force = false)
+    public function get($path, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
     {
+        $path = ConnectorTrait::sanitizePath($path);
         $query = http_build_query($options);
         if ($query !== '') {
             $path .= "?$query";

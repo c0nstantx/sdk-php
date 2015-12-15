@@ -9,6 +9,7 @@ use Buzz\Browser;
 use RG\Connection;
 use RG\Interfaces\ConnectorInterface;
 use RG\Proxy;
+use RG\Traits\ConnectorTrait;
 use RG\Traits\ProxyConnectorTrait;
 
 /**
@@ -41,16 +42,19 @@ class NoAuthConnector implements ConnectorInterface
      *
      * @return mixed
      */
-    public function get($path, $options = array(), $array = false, $useProxy = true,
-                        $permanent = false, $force = false)
+    public function get($path, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
     {
+        $path = ConnectorTrait::sanitizePath($path);
         $url = $this->buildUrl($path, $options);
-        $headers = $this->buildHeaders($url);
+        $requestHeaders = $this->buildHeaders($headers);
 
         if ($useProxy) {
-            return $this->getFromProxy($path, $options, $array ,$permanent, $force);
+            return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
         }
-        $response = $this->client->get($url, $headers);
+        $response = $this->client->get($url, $requestHeaders);
 
         return json_decode($response->getContent(), $array);
     }
@@ -69,9 +73,16 @@ class NoAuthConnector implements ConnectorInterface
         return $url;
     }
 
-    protected function buildHeaders($url)
+    /**
+     * @param array $extraHeaders
+     *
+     * @return array
+     */
+    protected function buildHeaders(array $extraHeaders = [])
     {
-        return ['User-Agent' => $this->userAgent];
+        $defaultHeaders = ['User-Agent' => $this->userAgent];
+
+        return array_merge($defaultHeaders, $extraHeaders);
     }
 
     /**

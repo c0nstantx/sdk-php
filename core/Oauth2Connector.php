@@ -30,6 +30,8 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
 
     protected $scopes = [];
 
+    protected $tokenName = 'access_token';
+
     public function __construct(Browser $httpClient, Proxy $proxy)
     {
         $this->__cConstruct();
@@ -53,17 +55,22 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
     /**
      * {@inheritdoc}
      */
-    public function get($path, $options = array(), $array = false, $useProxy = true,
-                        $permanent = false, $force = false)
+    public function get($path, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
     {
-        $options['access_token'] = $this->token->getToken();
+        $path = self::sanitizePath($path);
+        if ($this->tokenName) {
+            $options[$this->tokenName] = $this->token->getToken();
+        }
         $url = $this->buildUrl($path, $options);
-        $headers = $this->buildHeaders($url);
+        $requestHeaders = $this->buildHeaders($url, $headers);
 
         if ($useProxy) {
-            return $this->getFromProxy($path, $options, $array ,$permanent, $force);
+            return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
         } else {
-            $response = $this->client->get($url, $headers);
+            $response = $this->client->get($url, $requestHeaders);
             $lastResponse = $this->client->getLastResponse();
             if ($lastResponse) {
                 $headers = $lastResponse->getHeaders();
@@ -116,13 +123,17 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
     /**
      * Build headers.
      *
+     * @param string $url
+     * @param array  $extraHeaders
+     *
      * @return array
      */
-    protected function buildHeaders()
+    protected function buildHeaders($url, array $extraHeaders = [])
     {
         $headers = $this->getHeaders($this->token);
         $headers['Accept'] = 'application/json';
-        return $headers;
+
+        return array_merge($headers, $extraHeaders);
     }
 
     /**
