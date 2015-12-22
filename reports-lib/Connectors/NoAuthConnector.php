@@ -64,9 +64,16 @@ class NoAuthConnector implements ConnectorInterface
         return 'open';
     }
 
-    protected function buildUrl($url, $options = [])
+    /**
+     * @param string $path
+     * @param array $options
+     *
+     * @return string
+     */
+    protected function buildUrl($path, $options = [])
     {
         $query = http_build_query($options);
+        $url = $this->buildUrlFromPath($path);
         if ($query !== '') {
             $url .= "?$query";
         }
@@ -94,7 +101,7 @@ class NoAuthConnector implements ConnectorInterface
      */
     public function buildUrlFromPath($path)
     {
-        // TODO: Implement buildUrlFromPath() method.
+        return $path;
     }
 
     /**
