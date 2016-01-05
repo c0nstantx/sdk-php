@@ -71,7 +71,7 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
             } else {
                 $this->lastHeaders = [];
             }
-            return json_decode($response->getContent(), $array);
+            return self::convertContent($response->getContent(), $array);
         }
     }
 

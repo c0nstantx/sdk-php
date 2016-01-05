@@ -38,6 +38,72 @@ trait ConnectorTrait
         return ltrim($path, '/');
     }
 
+    /**
+     * Converts response content based on the type (XML, JSON, RAW)
+     *
+     * @param string $content
+     * @param bool $array
+     *
+     * @return mixed
+     */
+    public static function convertContent($content, $array = false)
+    {
+        if (self::isXML($content)) {
+            $content = self::XMLtoJSON($content);
+            return json_decode($content, $array);
+        } elseif (self::isJson($content)) {
+            return json_decode($content, $array);
+        } else {
+            return $content;
+        }
+    }
+
+    /**
+     * Returns if the given content is a valid XML
+     *
+     * @param string $content
+     *
+     * @return bool
+     */
+    public static function isXML($content)
+    {
+        libxml_use_internal_errors(true);
+        $doc = simplexml_load_string($content);
+
+        return (bool)$doc;
+    }
+
+    /**
+     * Returns if the given content is a valid JSON
+     *
+     * @param string $content
+     *
+     * @return bool
+     */
+    public static function isJson($content)
+    {
+        $json = json_decode($content);
+
+        return $json !== null;
+    }
+
+    /**
+     * Converts an XML string to JSON
+     *
+     * @param string $xml
+     *
+     * @return string
+     */
+    public static function XMLtoJSON($xml)
+    {
+        $xml = str_replace(array("\n", "\r", "\t"), '', $xml);
+        $xml = trim(str_replace('"', "'", $xml));
+
+        $simpleXml = simplexml_load_string($xml);
+
+        return json_encode($simpleXml);
+    }
+
     public function __construct()
     {
         $this->userAgent = 'Rocketgraph-engine';

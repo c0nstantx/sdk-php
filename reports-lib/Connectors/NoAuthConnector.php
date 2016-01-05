@@ -23,6 +23,8 @@ class NoAuthConnector implements ConnectorInterface
 
     protected $client;
 
+    protected $lastHeaders = [];
+
     public function __construct(Browser $httpClient, Proxy $proxy)
     {
         $this->client = $httpClient;
@@ -49,14 +51,21 @@ class NoAuthConnector implements ConnectorInterface
     {
         $path = ConnectorTrait::sanitizePath($path);
         $url = $this->buildUrl($path, $options);
-        $requestHeaders = $this->buildHeaders($headers);
+        $requestHeaders = $this->buildHeaders($url, $headers);
 
         if ($useProxy) {
             return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
+        } else {
+            $response = $this->client->get($url, $requestHeaders);
+            $lastResponse = $this->client->getLastResponse();
+            if ($lastResponse) {
+                $headers = $lastResponse->getHeaders();
+                $this->lastHeaders = $this->parseHeaders($headers);
+            } else {
+                $this->lastHeaders = [];
+            }
+            return ConnectorTrait::convertContent($response->getContent(), $array);
         }
-        $response = $this->client->get($url, $requestHeaders);
-
-        return json_decode($response->getContent(), $array);
     }
 
     public function getName()
@@ -85,7 +94,7 @@ class NoAuthConnector implements ConnectorInterface
      *
      * @return array
      */
-    protected function buildHeaders(array $extraHeaders = [])
+    protected function buildHeaders($url, array $extraHeaders = [])
     {
         $defaultHeaders = ['User-Agent' => $this->userAgent];
 
@@ -102,6 +111,38 @@ class NoAuthConnector implements ConnectorInterface
     public function buildUrlFromPath($path)
     {
         return $path;
+    }
+
+    /**
+     * Get latest call headers
+     *
+     * @return array
+     */
+    public function getLastHeaders()
+    {
+        return $this->lastHeaders;
+    }
+
+    /**
+     * Parse response headers
+     *
+     * @param array $headers
+     * @return array
+     */
+    protected function parseHeaders(array $headers)
+    {
+        $parsedHeaders = [];
+        foreach($headers as $header) {
+            $firstSeparator = strpos($header, ':');
+            if ($firstSeparator) {
+                $key = substr($header, 0, $firstSeparator);
+                $value = substr($header, $firstSeparator+1);
+                $parsedHeaders[strtolower($key)] = strtolower(trim($value));
+            } else {
+                $parsedHeaders[strtolower($header)] = true;
+            }
+        }
+        return $parsedHeaders;
     }
 
     /**

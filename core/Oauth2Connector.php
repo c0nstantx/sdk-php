@@ -78,7 +78,7 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
             } else {
                 $this->lastHeaders = [];
             }
-            return json_decode($response->getContent(), $array);
+            return self::convertContent($response->getContent(), $array);
         }
 
     }
