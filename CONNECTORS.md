@@ -53,3 +53,15 @@ Available Connectors
 (key: `pinterest`)
 - **Spotify**
 (key: `spotify`)
+- **Linkedin**
+(key: `linkedin`)
+- **Paypal**
+(key: `paypal`)
+- **Slack**
+(key: `slack`)
+- **Square**
+(key: `square`)
+- **Trello**
+(key: `trello`)
+- **Tumblr**
+(key: `tumblr`)
