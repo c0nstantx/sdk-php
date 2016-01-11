@@ -65,3 +65,7 @@ Available Connectors
 (key: `trello`)
 - **Tumblr**
 (key: `tumblr`)
+- **Twitch**
+(key: `twitch`)
+- **Vimeo**
+(key: `vimeo`)
