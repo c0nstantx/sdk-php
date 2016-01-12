@@ -143,11 +143,13 @@ For Example:
 Report Development
 ---------------------------
 
-Your report code lies inside the `/src` folder. There is also a report example inside `/src_demo`, while the public folder of the report render (webserver root) is the `/web` folder.
+Your report code lies inside the `/src` folder. There is also a report example inside `/src_demo`*, while the public folder of the report render (webserver root) is the `/web` folder.
 
 For example, if you have installed the sdk to your `localhost` root folder, you can access the rendered report in the url: `http://localhost/web`
 
 For more details on how to create a report read the [Developer's Manual][9].
+
+**If you want to try the demo, copy the contents of `/src_demo` folder to `/src`*
 
 Run server
 ----------
