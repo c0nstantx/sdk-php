@@ -17,6 +17,8 @@ class SpotifyConnector extends Oauth2Connector
     const API_HOST = 'https://api.spotify.com';
     const API_VERSION = 'v1';
 
+    protected $tokenName = null;
+    
     /**
      * Returns the base URL for authorizing a client.
      *
