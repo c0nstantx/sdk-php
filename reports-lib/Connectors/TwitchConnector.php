@@ -16,6 +16,8 @@ class TwitchConnector extends Oauth2Connector
 {
     const API_HOST = 'https://api.twitch.tv/kraken';
 
+    protected $tokenName = 'oauth_token';
+    
     /**
      * Returns the base URL for authorizing a client.
      *
