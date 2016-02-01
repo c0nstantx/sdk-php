@@ -69,3 +69,5 @@ Available Connectors
 (key: `twitch`)
 - **Vimeo**
 (key: `vimeo`)
+- **Jawbone**
+(key: `jawbone`)
