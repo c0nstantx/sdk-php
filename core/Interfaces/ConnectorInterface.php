@@ -16,7 +16,7 @@ use RG\Connection;
 interface ConnectorInterface
 {
     /**
-     * Get an API call response.
+     * Get an API call response from path.
      *
      * @param string $path          The requested API path
      * @param array $options        Extra options for the requested path
@@ -29,6 +29,23 @@ interface ConnectorInterface
      * @return \Buzz\Message\MessageInterface
      */
     public function get($path, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false);
+
+    /**
+     * Get an API call response from url.
+     *
+     * @param string $url           The requested API url
+     * @param array $options        Extra options for the requested path
+     * @param array $headers        Custom request headers
+     * @param bool $array           Return the results as an associative array
+     * @param bool $useProxy        Use proxy for the results
+     * @param bool $permanent       Persist permanent the call to proxy (Never update)
+     * @param bool $force           Force update of proxy record for the call
+     *
+     * @return \Buzz\Message\MessageInterface
+     */
+    public function getAbsolute($url, array $options = [], array $headers = [],
                         $array = false, $useProxy = true, $permanent = false,
                         $force = false);
 

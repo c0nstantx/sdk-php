@@ -56,12 +56,28 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
     )
     {
         $path = self::sanitizePath($path);
-        $url = $this->buildUrl($path, $options);
+        $url = $this->buildUrl($path);
+
+        return $this->getAbsolute($url, $options, $headers, $array, $useProxy, $permanent, $force);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAbsolute($url, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
+    {
+        $query = http_build_query($options);
+        if ($query !== '') {
+            $url .= "?$query";
+        }
         $requestHeaders = $this->buildHeaders($url, $headers);
         $requestHeaders = array_merge($requestHeaders, $headers);
 
         if ($useProxy) {
-            return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
+            return $this->getFromProxy($url, $options, $requestHeaders, $array ,$permanent, $force);
         } else {
             $response = $this->client->get($url, $requestHeaders);
             $lastResponse = $this->client->getLastResponse();

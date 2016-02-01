@@ -49,12 +49,31 @@ class NoAuthConnector implements ConnectorInterface
                         $force = false
     )
     {
+
+        $response = $connector->get("https://api.twitter.com/1.1/users/show.json", array('screen_name'=>$handle, 'include_entities' => 'true'));
+
         $path = ConnectorTrait::sanitizePath($path);
         $url = $this->buildUrl($path, $options);
+
+        return $this->getAbsolute($url, $options, $headers, $array, $useProxy, $permanent, $force);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAbsolute($url, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
+    {
+        $query = http_build_query($options);
+        if ($query !== '') {
+            $url .= "?$query";
+        }
         $requestHeaders = $this->buildHeaders($url, $headers);
 
         if ($useProxy) {
-            return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
+            return $this->getFromProxy($url, $options, $requestHeaders, $array ,$permanent, $force);
         } else {
             $response = $this->client->get($url, $requestHeaders);
             $lastResponse = $this->client->getLastResponse();
@@ -66,6 +85,7 @@ class NoAuthConnector implements ConnectorInterface
             }
             return ConnectorTrait::convertContent($response->getContent(), $array);
         }
+
     }
 
     public function getName()

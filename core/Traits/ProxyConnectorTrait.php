@@ -29,7 +29,7 @@ trait ProxyConnectorTrait
     }
 
     /**
-     * @param $path
+     * @param $url
      * @param array $options
      * @param array $headers
      * @param bool $array
@@ -38,12 +38,11 @@ trait ProxyConnectorTrait
      *
      * @return mixed
      */
-    protected function getFromProxy($path, array $options = [], array $headers = [],
+    protected function getFromProxy($url, array $options = [], array $headers = [],
                                     $array = false, $permanent = false,
                                     $force = false
     )
     {
-        $url = $this->buildUrl($path, $options);
         $requestHeaders = $this->buildHeaders($url, $headers);
         $key = [
             'url' => $url,
@@ -53,7 +52,7 @@ trait ProxyConnectorTrait
         $now = new \DateTime();
         $storedCall = $this->proxy->find($key);
         if (null === $storedCall || $force) {
-            $response = $this->get($path, $options, $requestHeaders, false, false);
+            $response = $this->getAbsolute($url, $options, $requestHeaders, false, false);
             if ($response) {
                 $data = [
                     'data' => $response,
@@ -71,7 +70,7 @@ trait ProxyConnectorTrait
 
         if ($this->recordHasExpired($storedCall)) {
             $this->proxy->delete($key);
-            return $this->getFromProxy($path, $options, $requestHeaders, $array, $permanent, $force);
+            return $this->getFromProxy($url, $options, $requestHeaders, $array, $permanent, $force);
         }
         $this->lastProxyHeaders = json_decode(json_encode($storedCall->headers), true);
         return json_decode(json_encode($storedCall->data), $array);

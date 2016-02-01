@@ -32,6 +32,8 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
 
     protected $tokenName = 'access_token';
 
+    protected $bearerPrefix = 'Bearer';
+
     public function __construct(Browser $httpClient, Proxy $proxy)
     {
         $this->__cConstruct();
@@ -60,15 +62,30 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
                         $force = false
     )
     {
-        $path = self::sanitizePath($path);
+        $url = $this->buildUrl($path);
+
+        return $this->getAbsolute($url, $options, $headers, $array, $useProxy, $permanent, $force);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAbsolute($url, array $options = [], array $headers = [],
+                        $array = false, $useProxy = true, $permanent = false,
+                        $force = false
+    )
+    {
         if ($this->tokenName) {
             $options[$this->tokenName] = $this->token->getToken();
         }
-        $url = $this->buildUrl($path, $options);
+        $query = http_build_query($options);
+        if ($query !== '') {
+            $url .= "?$query";
+        }
         $requestHeaders = $this->buildHeaders($url, $headers);
 
         if ($useProxy) {
-            return $this->getFromProxy($path, $options, $requestHeaders, $array ,$permanent, $force);
+            return $this->getFromProxy($url, $options, $requestHeaders, $array ,$permanent, $force);
         } else {
             $response = $this->client->get($url, $requestHeaders);
             $lastResponse = $this->client->getLastResponse();
@@ -150,7 +167,9 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
      */
     protected function getAuthorizationHeaders($token = null)
     {
-        return ['Authorization' => "Bearer {$token->getToken()}"];
+        $prefix = $this->bearerPrefix ? "{$this->bearerPrefix} " : '';
+
+        return ['Authorization' => "$prefix{$token->getToken()}"];
     }
 
     /**
@@ -174,6 +193,14 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
         // TODO: Implement getResourceOwnerDetailsUrl() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return '';
     }
 
     /**
@@ -214,4 +241,6 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
     {
         // TODO: Implement createResourceOwner() method.
     }
+
+
 }

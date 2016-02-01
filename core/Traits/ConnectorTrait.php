@@ -190,10 +190,7 @@ trait ConnectorTrait
     {
         $path = self::sanitizePath($path);
         $url = $this->buildUrlFromPath($path);
-        $query = http_build_query($options);
-        if ($query !== '') {
-            $url .= "?$query";
-        }
+
         return $url;
     }
 
