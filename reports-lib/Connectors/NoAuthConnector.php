@@ -49,9 +49,6 @@ class NoAuthConnector implements ConnectorInterface
                         $force = false
     )
     {
-
-        $response = $connector->get("https://api.twitter.com/1.1/users/show.json", array('screen_name'=>$handle, 'include_entities' => 'true'));
-
         $path = ConnectorTrait::sanitizePath($path);
         $url = $this->buildUrl($path, $options);
 
