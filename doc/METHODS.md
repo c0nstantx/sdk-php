@@ -311,10 +311,10 @@ Previous: [Main file structure][6]
 
 [Index][7]
 
-[1]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md#5.1.2-api-call-using-path
-[2]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md#5.1.3-api-call-using-absolute-url
+[1]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md#512-api-call-using-path
+[2]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md#513-api-call-using-absolute-url
 [3]:https://github.com/rocketgraph/sdk-php/blob/master/doc/FOLDER.md
 [4]:http://twig.sensiolabs.org/
-[5]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md#5.5-storage
+[5]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md#55-storage
 [6]:https://github.com/rocketgraph/sdk-php/blob/master/doc/FILES.md
 [7]:https://github.com/rocketgraph/sdk-php/blob/master/doc/MANUAL.md

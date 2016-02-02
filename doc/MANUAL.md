@@ -12,3 +12,4 @@
 [3]:https://github.com/rocketgraph/sdk-php/blob/master/doc/FOLDER.md
 [4]:https://github.com/rocketgraph/sdk-php/blob/master/doc/FILES.md
 [5]:https://github.com/rocketgraph/sdk-php/blob/master/doc/METHODS.md
+[6]:https://github.com/rocketgraph/sdk-php/blob/master/doc/EXAMPLE.md
