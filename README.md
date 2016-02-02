@@ -168,7 +168,7 @@ In order to emulate the aggregation process you can run the following command fr
 
     php app/aggregate.php
     
-For more information about this functionality you can read the [Development manual][9]
+For more information about this functionality you can read the [Developer manual][9]
 
 Sentiment Analysis
 ------------------
@@ -186,4 +186,4 @@ Sentiment analysis API cannot be implemented inside the SDK, that's why the `cac
 [6]: http://tools.ietf.org/html/rfc6749
 [7]: https://developers.facebook.com/
 [8]: CONNECTORS.md
-[9]: doc/MANUAL.md
+[9]: https://github.com/rocketgraph/sdk-php/wiki/Developer-manual
