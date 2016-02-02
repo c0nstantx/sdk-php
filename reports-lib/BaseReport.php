@@ -11,8 +11,8 @@ namespace RAM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use RAM\Connectors\NoAuthConnector;
+use RAM\Exception\ConnectorNotFoundException;
 use RG\Interfaces\ReportInterface;
-use RG\Exception\ConnectorNotFoundException;
 use RG\Sentiment;
 use RG\Storage;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

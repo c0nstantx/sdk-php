@@ -4,8 +4,8 @@
  * <http://www.rocketgraph.com>
  */
 
-namespace Tests\Core\Exception;
-use RG\Exception\ConnectorNotFoundException;
+namespace Tests\RAM\Exception;
+use RAM\Exception\ConnectorNotFoundException;
 
 /**
  * Description of ConnectorNotFoundExceptionTest

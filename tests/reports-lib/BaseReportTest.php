@@ -5,7 +5,7 @@
  * <http://www.rocketgraph.com>.
  */
 
-namespace RG\ReportsBundle\Tests\RAM;
+namespace Tests\RAM;
 
 use RG\ReportsBundle\Entity\Provider;
 use RG\ReportsBundle\Entity\ReportConnector;
@@ -160,7 +160,7 @@ class BaseReportTest extends \PHPUnit_Framework_TestCase
 
         /* Exceptions */
         $this->baseReport->setConnectors(['twitter'=>'connector']);
-        $this->setExpectedException('RG\Exception\ConnectorNotFoundException');
+        $this->setExpectedException('\RAM\Exception\ConnectorNotFoundException');
         $this->baseReport->getConnector('unknown');
 
     }

@@ -1,14 +1,13 @@
 <?php
-
 /**
  * This file is part of Rocketgraph service
- * <http://www.rocketgraph.com>.
+ * <http://www.rocketgraph.com>
  */
 
-namespace RG\Exception;
+namespace RAM\Exception;
 
 /**
- * Description of ConnectorNotFoundException.
+ * Description of ConnectorNotFoundException
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
