@@ -5,6 +5,7 @@
 3. [Report folder structure][3]
 4. [Main file structure][4]
 5. [Helper methods][5]
+6. [Create our first report][6]
 
 
 [1]:https://github.com/rocketgraph/sdk-php/blob/master/doc/RAM.md
