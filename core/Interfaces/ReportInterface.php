@@ -6,8 +6,8 @@
  */
 namespace RG\Interfaces;
 
+use RAM\Services\Storage;
 use RG\ReportConnector;
-use RG\Storage;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

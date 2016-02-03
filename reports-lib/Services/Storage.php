@@ -4,7 +4,7 @@
  * <http://www.rocketgraph.com>
  */
 
-namespace RG;
+namespace RAM\Services;
 
 /**
  * Description of Storage
@@ -20,6 +20,12 @@ class Storage
         $this->storagePath = getcwd().'/../'.$path;
     }
 
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     *
+     * @return bool
+     */
     final public function save($key, $value)
     {
         $hash = $this->generateHash($key);
@@ -34,6 +40,11 @@ class Storage
         return false;
     }
 
+    /**
+     * @param string $key
+     *
+     * @return null
+     */
     final public function find($key)
     {
         $hash = $this->generateHash($key);
@@ -49,6 +60,9 @@ class Storage
         return null;
     }
 
+    /**
+     * @param mixed $key
+     */
     final public function delete($key)
     {
         $hash = $this->generateHash($key);
@@ -56,11 +70,21 @@ class Storage
         @unlink($file);
     }
 
+    /**
+     * @param mixed $key
+     * @return string
+     */
     protected function generateHash($key)
     {
         return md5(serialize($key));
     }
 
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     *
+     * @return string
+     */
     protected function generateData($key, $value)
     {
         $data = [
@@ -69,5 +93,4 @@ class Storage
         ];
         return json_encode($data);
     }
-
 }

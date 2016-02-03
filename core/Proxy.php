@@ -5,6 +5,7 @@
  */
 
 namespace RG;
+use RAM\Services\Storage;
 
 /**
  * Description of ProxyService

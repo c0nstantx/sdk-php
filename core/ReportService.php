@@ -6,6 +6,7 @@
 
 namespace RG;
 use RAM\BaseReport;
+use RAM\Services\Sentiment;
 use RG\Exception\ReportNotFoundException;
 use RG\RenderEngine\RenderEngine;
 use Symfony\Component\DependencyInjection\Container;

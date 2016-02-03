@@ -4,7 +4,7 @@
  * <http://www.rocketgraph.com>
  */
 
-namespace RG;
+namespace RAM\Services;
 
 /**
  * Description of Sentiment
