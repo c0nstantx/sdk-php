@@ -5,13 +5,14 @@
  */
 
 namespace RAM\Services;
+use RG\Interfaces\StorageInterface;
 
 /**
  * Description of Storage
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class Storage
+class Storage implements StorageInterface
 {
     protected $storagePath;
 

@@ -13,8 +13,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use RAM\Connectors\NoAuthConnector;
 use RAM\Exception\ConnectorNotFoundException;
 use RAM\Services\Sentiment;
-use RAM\Services\Storage;
 use RG\Interfaces\ReportInterface;
+use RG\Interfaces\StorageInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use RG\Event\FilterReportEvent;
 use RG\Event\ReportEvents;
@@ -51,7 +51,7 @@ abstract class BaseReport implements ReportInterface
     /* @var array */
     protected $params;
 
-    /* @var Storage  */
+    /* @var StorageInterface  */
     protected $storage;
 
     /* @var \RAM\Connectors\NoAuthConnector */
@@ -63,7 +63,7 @@ abstract class BaseReport implements ReportInterface
     /**
      * @param EventDispatcherInterface $dispatcher
      */
-    final public function __construct(EventDispatcherInterface $dispatcher, Storage $storage)
+    final public function __construct(EventDispatcherInterface $dispatcher, StorageInterface $storage)
     {
         $this->dispatcher = $dispatcher;
         $this->storage = $storage;

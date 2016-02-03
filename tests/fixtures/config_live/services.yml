@@ -12,7 +12,7 @@ services:
         class: RG\RenderEngine\ReportTemplatingHelper
         arguments: [%report_assets%, %web_path%]
     storage_service:
-        class: RG\Storage
+        class: RAM\Services\Storage
         arguments: [%storage_path%]
     proxy_service:
         class: RG\Proxy
