@@ -78,10 +78,7 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
         if ($this->tokenName) {
             $options[$this->tokenName] = $this->token->getToken();
         }
-        $query = http_build_query($options);
-        if ($query !== '') {
-            $url .= "?$query";
-        }
+        $url = ConnectorTrait::bindUrlOptions($url, $options);
         $requestHeaders = $this->buildHeaders($url, $headers);
 
         if ($useProxy) {

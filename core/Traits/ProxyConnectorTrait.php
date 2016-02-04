@@ -43,16 +43,16 @@ trait ProxyConnectorTrait
                                     $force = false
     )
     {
-        $requestHeaders = $this->buildHeaders($url, $headers);
+        $requestUrl = ConnectorTrait::bindUrlOptions($url, $options);
         $key = [
-            'url' => $url,
-            'headers' => $headers
+            'url' => $requestUrl,
         ];
 
         $now = new \DateTime();
         $storedCall = $this->proxy->find($key);
         if (null === $storedCall || $force) {
-            $response = $this->getAbsolute($url, $options, $requestHeaders, false, false);
+            $requestHeaders = $this->buildHeaders($requestUrl, $headers);
+            $response = $this->getAbsolute($url, $options, $headers, false, false);
             if ($response) {
                 $data = [
                     'data' => $response,

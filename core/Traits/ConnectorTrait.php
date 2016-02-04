@@ -39,6 +39,24 @@ trait ConnectorTrait
     }
 
     /**
+     * Append query to url if any options are defined
+     *
+     * @param string $url
+     * @param array $options
+     *
+     * @return string
+     */
+    public static function bindUrlOptions($url, array $options = [])
+    {
+        $query = http_build_query($options);
+        if ($query !== '') {
+            $url .= "?$query";
+        }
+
+        return $url;
+    }
+
+    /**
      * Converts response content based on the type (XML, JSON, RAW)
      *
      * @param string $content
