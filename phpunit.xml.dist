@@ -6,6 +6,9 @@
     <testsuite name="Rocketgraph PHP SDK test suite">
       <directory suffix="Test.php">./tests</directory>
     </testsuite>
+    <testsuite name="Report test suite">
+      <directory suffix="Test.php">./src/tests</directory>
+    </testsuite>
   </testsuites>
 
   <filter>
