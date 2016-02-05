@@ -142,6 +142,26 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
     }
 
     /**
+     * Returns the display name of connection
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return '';
+    }
+
+    /**
+     * Get the URL for retrieving user details.
+     *
+     * @return string
+     */
+    public function urlUserDetails()
+    {
+        // TODO: Implement urlUserDetails() method.
+    }
+
+    /**
      * Build header for the given URL.
      *
      * @param string $url

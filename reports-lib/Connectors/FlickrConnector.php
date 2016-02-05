@@ -25,7 +25,7 @@ class FlickrConnector extends Oauth1Connector
      */
     public function buildUrlFromPath($path)
     {
-        return sprintf("%s/", self::API_HOST);
+        return sprintf("%s/%s", self::API_HOST, $path);
     }
 
     /**

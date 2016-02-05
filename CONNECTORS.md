@@ -71,3 +71,13 @@ Available Connectors
 (key: `vimeo`)
 - **Jawbone**
 (key: `jawbone`)
+- **VK**
+(key: `vk`)
+- **Weibo**
+(key: `weibo`)
+- **Meetup**
+(key: `meetup`)
+- **Misfit**
+(key: `misfit`)
+- **Withings**
+(key: `withings`)
