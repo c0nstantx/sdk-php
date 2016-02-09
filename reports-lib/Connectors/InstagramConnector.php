@@ -17,6 +17,8 @@ class InstagramConnector extends Oauth2Connector
     const API_HOST = 'https://api.instagram.com';
     const API_VERSION = 'v1';
 
+    public $scopes = ['basic'];
+
     /**
      * Returns the base URL for authorizing a client.
      *

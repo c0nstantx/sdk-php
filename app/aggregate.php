@@ -18,6 +18,7 @@ $report = $reportService->getReport();
 if (method_exists($report, 'aggregate')) {
     echo "Start aggregation...\n";
     $report->aggregate();
+    echo "Aggregation finished!\n";
 } else {
     echo "The report does not have an aggregation method\n";
 }

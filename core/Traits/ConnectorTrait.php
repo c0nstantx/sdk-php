@@ -18,6 +18,10 @@ trait ConnectorTrait
 
     public $secret = 'secret';
 
+    public $scopes = [];
+
+    public $callbackUrl = '';
+
     protected $connectorName;
 
     protected $token;
@@ -207,6 +211,9 @@ trait ConnectorTrait
     protected function buildUrl($path, $options = [])
     {
         $path = self::sanitizePath($path);
+        if (filter_var($path, FILTER_VALIDATE_URL)) {
+            return $path;
+        }
         $url = $this->buildUrlFromPath($path);
 
         return $url;

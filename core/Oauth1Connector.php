@@ -7,12 +7,14 @@
 namespace RG;
 
 use Buzz\Browser;
+use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\Server;
 use RG\Interfaces\ConnectorInterface;
 use RG\Traits\ConnectorTrait;
 use RG\Connection;
 use RG\Traits\ProxyConnectorTrait;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of Oauth1Connector.
@@ -159,6 +161,40 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
     public function urlUserDetails()
     {
         // TODO: Implement urlUserDetails() method.
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function isResponse(Request $request)
+    {
+        return $request->get('oauth_token') && $request->get('oauth_verifier');
+    }
+
+    /**
+     * Get the authorization URL by passing in the temporary credentials
+     * identifier or an object instance.
+     *
+     * @param TemporaryCredentials|string $temporaryIdentifier
+     *
+     * @return string
+     */
+    public function getAuthorizationUrl($temporaryIdentifier)
+    {
+        // Somebody can pass through an instance of temporary
+        // credentials and we'll extract the identifier from there.
+        if ($temporaryIdentifier instanceof TemporaryCredentials) {
+            $temporaryIdentifier = $temporaryIdentifier->getIdentifier();
+        }
+
+        $parameters = array('oauth_token' => $temporaryIdentifier);
+
+        $url = $this->urlAuthorization();
+        $queryString = http_build_query($parameters);
+
+        return parent::buildUrl($url, $queryString);
     }
 
     /**

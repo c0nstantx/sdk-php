@@ -11,6 +11,7 @@ use RG\Interfaces\ConnectorInterface;
 use RG\Proxy;
 use RG\Traits\ConnectorTrait;
 use RG\Traits\ProxyConnectorTrait;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of NoAuthConnector
@@ -198,5 +199,17 @@ class NoAuthConnector implements ConnectorInterface
     public function needsExtraParameters()
     {
         // TODO: Implement needsExtraParameters() method.
+    }
+
+    /**
+     * Returns if a request is a proper API OAuth callback
+     *
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function isResponse(Request $request)
+    {
+        // TODO: Implement isResponse() method.
     }
 }

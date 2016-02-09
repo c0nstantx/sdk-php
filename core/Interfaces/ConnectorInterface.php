@@ -7,6 +7,7 @@
 
 namespace RG\Interfaces;
 use RG\Connection;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of ConnectorInterface.
@@ -83,4 +84,13 @@ interface ConnectorInterface
      * @return bool
      */
     public function needsExtraParameters();
+
+    /**
+     * Returns if a request is a proper API OAuth callback
+     *
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function isResponse(Request $request);
 }

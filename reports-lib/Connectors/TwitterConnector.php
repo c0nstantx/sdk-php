@@ -6,6 +6,7 @@
  */
 namespace RAM\Connectors;
 
+use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use RG\Oauth1Connector;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -38,6 +38,59 @@ class ConnectorService
         }
     }
 
+    public function getAvailableConnectors()
+    {
+        $connectors =  [
+            'twitter' => 'Twitter',
+            'facebook' => 'Facebook',
+            'facebookpage' => 'Facebook Page',
+            'stripe' => 'Stripe',
+            'dribbble' => 'Dribbble',
+            'soundcloud' => 'Soundlcoud',
+            'google' => 'Google+',
+            'youtubedata' => 'Youtube Data',
+            'youtubeanalytics' => 'Youtube Analytics',
+            'quickbooks' => 'Quickbooks',
+            'fitbit' => 'Fitbit',
+            'github' => 'Github',
+            'fivehundredpx' => '500px',
+            'angellist' => 'AngelList',
+            'behance' => 'Behance',
+            'box' => 'Box',
+            'dropbox' => 'Dropbox',
+            'etsy' => 'Etsy',
+            'flickr' => 'Flickr',
+            'foursquare' => 'Foursquare',
+            'freshbooks' => 'FreshBooks',
+            'gmail' => 'Gmail',
+            'googleanalytics' => 'Google Analytics',
+            'instagram' => 'Instagram',
+            'pinterest' => 'Pinterest',
+            'spotify' => 'Spotify',
+            'linkedin' => 'LinkedIn',
+            'paypal' => 'Paypal',
+            'slack' => 'Slack',
+            'square' => 'Square',
+            'trello' => 'Trello',
+            'tumblr' => 'Tumblr',
+            'twitch' => 'Twitch',
+            'vimeo' => 'Vimeo',
+            'jawbone' => 'Jawbone',
+            'vk' => 'VK',
+            'weibo' => 'Weibo',
+            'meetup' => 'Meetup',
+            'misfit' => 'Misfit',
+            'withings' => 'Withings'
+        ];
+
+        asort($connectors, SORT_STRING);
+
+        return $connectors;
+    }
+
+    /**
+     * @return array
+     */
     public function getConnectors()
     {
         return $this->connectors;
@@ -60,6 +113,21 @@ class ConnectorService
         }
     }
 
+    public function buildPrimitiveConnector($provider)
+    {
+        $connectorClass = ucfirst(strtolower($provider)).'Connector';
+        $reflectionClass = new \ReflectionClass("RAM\\Connectors\\$connectorClass");
+
+        require_once $reflectionClass->getFileName();
+        return $reflectionClass->newInstance($this->client, $this->proxy);
+    }
+
+    /**
+     * @param string $provider
+     * @param array $params
+     *
+     * @return object
+     */
     protected function buildConnector($provider, array $params)
     {
         if ($this->connection === 'sandbox') {

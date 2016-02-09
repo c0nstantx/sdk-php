@@ -15,6 +15,7 @@ use Psr\Http\Message\ResponseInterface;
 use RG\Interfaces\ConnectorInterface;
 use RG\Traits\ConnectorTrait;
 use RG\Traits\ProxyConnectorTrait;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of Oauth1Connector.
@@ -27,8 +28,6 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
     use ConnectorTrait {
         ConnectorTrait::__construct as private __cConstruct;
     }
-
-    protected $scopes = [];
 
     protected $tokenName = 'access_token';
 
@@ -84,7 +83,7 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
         if ($useProxy) {
             return $this->getFromProxy($url, $options, $requestHeaders, $array ,$permanent, $force);
         } else {
-            $response = $this->client->get($url, $requestHeaders);
+            $response = $this->client->get($requestUrl, $requestHeaders);
             $lastResponse = $this->client->getLastResponse();
             if ($lastResponse) {
                 $headers = $lastResponse->getHeaders();
@@ -132,6 +131,29 @@ abstract class Oauth2Connector extends AbstractProvider implements ConnectorInte
             'redirectUri' => $this->callbackUrl,
             'scopes' => $this->scopes,
         ));
+    }
+
+    /**
+     * Get connector's default token parameters. Override in each connector
+     * to add connector specific parameters
+     *
+     * @return array
+     */
+    public function getDefaultTokenParameters()
+    {
+        return [];
+    }
+
+    /**
+     * Checks if the request is a provider response.
+     *
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function isResponse(Request $request)
+    {
+        return (boolean)$request->get('code');
     }
 
     /**
