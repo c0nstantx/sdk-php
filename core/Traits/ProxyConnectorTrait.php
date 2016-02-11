@@ -48,10 +48,10 @@ trait ProxyConnectorTrait
             'url' => $requestUrl,
         ];
 
+        $requestHeaders = $this->buildHeaders($requestUrl, $headers);
         $now = new \DateTime();
         $storedCall = $this->proxy->find($key);
         if (null === $storedCall || $force) {
-            $requestHeaders = $this->buildHeaders($requestUrl, $headers);
             $response = $this->getAbsolute($url, $options, $headers, false, false);
             if ($response) {
                 $data = [
