@@ -81,3 +81,5 @@ Available Connectors
 (key: `misfit`)
 - **Withings**
 (key: `withings`)
+- **Genius**
+(key: `genius`)
