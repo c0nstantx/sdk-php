@@ -5,7 +5,6 @@
  */
 
 namespace RG;
-use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Description of ConsoleCommand
@@ -61,6 +60,12 @@ abstract class ConsoleCommand
         return $this;
     }
 
+    /**
+     * Prints message to console output
+     *
+     * @param string $message
+     * @param int $repeat
+     */
     public function output($message = '', $repeat = 1)
     {
         for ($i=0; $i < $repeat; $i++) {
@@ -68,6 +73,13 @@ abstract class ConsoleCommand
         }
     }
 
+    /**
+     * Read input from console
+     *
+     * @param string $prompt
+     *
+     * @return string
+     */
     public function readline($prompt)
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
@@ -76,7 +88,5 @@ abstract class ConsoleCommand
         }
 
         return readline($prompt);
-
-        exit;
     }
 }

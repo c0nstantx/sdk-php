@@ -29,6 +29,9 @@ class AuthCommand extends ConsoleCommand
         $this->authConnector($connector);
     }
 
+    /**
+     * Display list of available connectors
+     */
     protected function displayAvailableConnectors()
     {
         $this->output('Available Connectors');
@@ -43,6 +46,9 @@ class AuthCommand extends ConsoleCommand
         $this->output();
     }
 
+    /**
+     * Read connector name from input
+     */
     protected function getConnector()
     {
         do {
@@ -52,6 +58,11 @@ class AuthCommand extends ConsoleCommand
         $this->setInput(['connectorName' => $connectorName]);
     }
 
+    /**
+     * Build a primitive connector
+     *
+     * @return ConnectorInterface
+     */
     protected function buildConnector()
     {
         $connectorSerivce = $this->container->get('connector_service');
@@ -60,7 +71,12 @@ class AuthCommand extends ConsoleCommand
         return $connector;
     }
 
-    protected function authConnector($connector)
+    /**
+     * Authorize process for connector
+     *
+     * @param ConnectorInterface $connector
+     */
+    protected function authConnector(ConnectorInterface $connector)
     {
         $clientId = $this->readline("Enter Client ID: ");
         $clientSecret = $this->readline("Enter Client Secret: ");
