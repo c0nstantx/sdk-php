@@ -67,4 +67,16 @@ abstract class ConsoleCommand
             echo "$message\n";
         }
     }
+
+    public function readline($prompt)
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            echo $prompt;
+            return stream_get_line(STDIN, 2048, PHP_EOL);
+        }
+
+        return readline($prompt);
+
+        exit;
+    }
 }

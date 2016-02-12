@@ -46,7 +46,7 @@ class AuthCommand extends ConsoleCommand
     protected function getConnector()
     {
         do {
-            $connectorName = readline("Select connector: ");
+            $connectorName = $this->readline("Select connector: ");
         } while (!isset($this->connectors[$connectorName]));
 
         $this->setInput(['connectorName' => $connectorName]);
@@ -62,12 +62,12 @@ class AuthCommand extends ConsoleCommand
 
     protected function authConnector($connector)
     {
-        $clientId = readline("Enter Client ID: ");
-        $clientSecret = readline("Enter Client Secret: ");
-        $callbackUrl = readline("Enter callback URL: ");
+        $clientId = $this->readline("Enter Client ID: ");
+        $clientSecret = $this->readline("Enter Client Secret: ");
+        $callbackUrl = $this->readline("Enter callback URL: ");
 
         if ($connector instanceof Oauth2Connector) {
-            $scopes = readline("Enter scopes (optional): ");
+            $scopes = $this->readline("Enter scopes (optional): ");
             if ($scopes !== '') {
                 $scopes = explode(',', str_replace(' ', '', $scopes));
             }
@@ -134,7 +134,7 @@ class AuthCommand extends ConsoleCommand
         $this->output();
 
         do {
-            $callbackUrl = readline('Paste URL: ');
+            $callbackUrl = $this->readline('Paste URL: ');
             $request = $this->buildRequestFromCallback($callbackUrl);
             if (!$connector->isResponse($request)) {
                 $this->output("This is not a valid callback URL");
