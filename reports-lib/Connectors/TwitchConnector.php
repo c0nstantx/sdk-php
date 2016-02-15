@@ -55,13 +55,8 @@ class TwitchConnector extends Oauth2Connector
         return sprintf("%s/%s", self::API_HOST, $path);
     }
 
-    /**
-     * Returns the display name of connection
-     *
-     * @return string
-     */
-    public function getDisplayName()
+    public function getScopeSeparator()
     {
-        return '';
+        return ' ';
     }
 }
