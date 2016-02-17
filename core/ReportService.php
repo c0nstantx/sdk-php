@@ -79,6 +79,7 @@ class ReportService
     {
         $request = Request::createFromGlobals();
         $this->report->setParams($request->query->all());
+        $this->clearGetRequest();
     }
 
     /**
@@ -204,5 +205,19 @@ class ReportService
     {
         $destFile = $destinationFolder.DIRECTORY_SEPARATOR.basename($file);
         copy($file, $destFile);
+    }
+
+    /**
+     * Clears the global $_GET, $_POST variables and $_SERVER['QUERY_STRING']
+     */
+    protected function clearGetRequest()
+    {
+        $_SERVER['QUERY_STRING'] = '';
+        foreach ($_GET as $key => $value) {
+            unset($_GET[$key]);
+        }
+        foreach ($_POST as $key => $value) {
+            unset($_POST[$key]);
+        }
     }
 }
