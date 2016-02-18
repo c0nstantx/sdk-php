@@ -5,7 +5,7 @@
  */
 
 namespace RG;
-use Buzz\Browser;
+
 use RAM\Connectors\Mock\NoAuthMockConnector;
 use RAM\Connectors\NoAuthConnector;
 

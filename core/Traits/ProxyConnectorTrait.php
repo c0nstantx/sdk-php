@@ -22,8 +22,8 @@ trait ProxyConnectorTrait
      */
     public function getLastProxyHeaders()
     {
-        if ($this->lastProxyHeaders) {
-            return $this->parseHeaders($this->lastProxyHeaders);
+        if ($this->lastHeaders) {
+            return $this->parseHeaders($this->lastHeaders);
         }
         return [];
     }
@@ -72,7 +72,7 @@ trait ProxyConnectorTrait
             $this->proxy->delete($key);
             return $this->getFromProxy($url, $options, $requestHeaders, $array, $permanent, $force);
         }
-        $this->lastProxyHeaders = json_decode(json_encode($storedCall->headers), true);
+        $this->lastHeaders = json_decode(json_encode($storedCall->headers), true);
         return json_decode(json_encode($storedCall->data), $array);
     }
 

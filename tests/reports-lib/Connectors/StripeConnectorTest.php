@@ -25,7 +25,7 @@ class StripeConnectorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $browser = $this->getMockBuilder('Buzz\Browser')
+        $browser = $this->getMockBuilder('RG\Browser')
             ->disableOriginalConstructor()
             ->setMethods([
                 'get'

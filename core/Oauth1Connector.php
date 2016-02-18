@@ -6,13 +6,11 @@
  */
 namespace RG;
 
-use Buzz\Browser;
 use League\OAuth1\Client\Credentials\TemporaryCredentials;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use League\OAuth1\Client\Server\Server;
 use RG\Interfaces\ConnectorInterface;
 use RG\Traits\ConnectorTrait;
-use RG\Connection;
 use RG\Traits\ProxyConnectorTrait;
 use Symfony\Component\HttpFoundation\Request;
 

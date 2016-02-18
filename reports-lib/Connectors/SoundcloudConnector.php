@@ -30,18 +30,6 @@ class SoundcloudConnector extends Oauth2Connector
     /**
      * {@inheritdoc}
      */
-    public function getDisplayName()
-    {
-        $profile = $this->get('account');
-        if ($profile) {
-            return $profile->display_name;
-        }
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function retrieveAuthUrl()
     {
         $authUrl = $this->getAuthorizationUrl();
@@ -70,6 +58,6 @@ class SoundcloudConnector extends Oauth2Connector
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'https://soundcloud.com/oauth2/token';
+        return 'https://api.soundcloud.com/oauth2/token';
     }
 }

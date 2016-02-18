@@ -6,6 +6,7 @@
  */
 
 namespace RG\Traits;
+use RG\Browser;
 
 /**
  * Description of ConnectorTrait.
@@ -29,6 +30,14 @@ trait ConnectorTrait
     protected $client;
 
     protected $lastHeaders = [];
+
+    /**
+     * @return Browser
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
 
     /**
      * Sanitize path before passing it to url building

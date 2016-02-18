@@ -1,7 +1,10 @@
 services:
+    browser:
+        class: RG\Browser
+        arguments: ["@buzz.client", "@buzz.message_factory"]
     connector_service:
         class: RG\ConnectorService
-        arguments: [%connectors%, @buzz, @proxy_service, %connection%, %responses%]
+        arguments: [%connectors%, @browser, @proxy_service, %connection%, %responses%]
     report_service:
         class: RG\ReportService
         arguments: [@service_container]
