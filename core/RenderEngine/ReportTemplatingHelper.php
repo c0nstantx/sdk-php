@@ -20,24 +20,39 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
  */
 class ReportTemplatingHelper
 {
+    /** @var AssetsHelper  */
     protected $templatingHelper;
 
+    /** @var string  */
     protected $reportAssetsFolder;
 
+    /** @var  string */
     protected $webPath;
+
+    /** @var  string */
+    protected $wrapperUrl;
 
     /**
      * Construct report templating helper
      *
      * @param string $reportAssetsFolder
      */
-    public function __construct($reportAssetsFolder, $webPath)
+    public function __construct($reportAssetsFolder, $webPath, $wrapperUrl)
     {
         $package = new Package(new EmptyVersionStrategy());
         $packages = new Packages($package);
         $this->templatingHelper = new AssetsHelper($packages);
         $this->reportAssetsFolder = $reportAssetsFolder;
         $this->webPath = $webPath;
+        $this->wrapperUrl = $wrapperUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWrapperUrl()
+    {
+        return $this->wrapperUrl;
     }
 
     /**

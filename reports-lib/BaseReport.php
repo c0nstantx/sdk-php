@@ -15,6 +15,7 @@ use RAM\Exception\ConnectorNotFoundException;
 use RAM\Services\Sentiment;
 use RG\Interfaces\ReportInterface;
 use RG\Interfaces\StorageInterface;
+use RG\RenderEngine\RenderEngine;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use RG\Event\FilterReportEvent;
 use RG\Event\ReportEvents;
@@ -36,7 +37,7 @@ abstract class BaseReport implements ReportInterface
     /* @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $dispatcher;
 
-    /* @var \Twig_Environment */
+    /* @var RenderEngine */
     protected $renderEngine;
 
     /* @var array */

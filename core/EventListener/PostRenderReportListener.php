@@ -19,15 +19,18 @@ class PostRenderReportListener
     /** @var  ReportTemplatingHelper */
     protected $templatingHelper;
 
+    protected $wrapperUrl;
+
     public function __construct(ReportTemplatingHelper $helper)
     {
         $this->templatingHelper = $helper;
+        $this->wrapperUrl = $helper->getWrapperUrl();
     }
 
     public function onReportRender(FilterReportEvent $event)
     {
         $report = $event->getReport();
-        $reportRouting = new ReportRouting($this->templatingHelper, $report);
+        $reportRouting = new ReportRouting($this->templatingHelper, $report, $this->wrapperUrl);
         $this->setScripts($reportRouting);
         $this->setStyles($reportRouting);
     }

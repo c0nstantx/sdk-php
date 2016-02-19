@@ -17,11 +17,17 @@ use RG\Exception\ExtensionNotLoadedException;
  */
 class RenderEngine extends \Twig_Environment
 {
+    /** @var RenderEngineExtensionManager  */
+    protected $extensionManager;
+
+    /** @var BaseReport  */
     protected $report;
 
-    protected $baseReportView;
-
+    /** @var ReportTemplatingHelper  */
     protected $templatingHelper;
+
+    /** @var ReportRouting  */
+    protected $router;
 
     public function __construct(\Twig_LoaderInterface $loader,
                                 BaseReport $report,
@@ -31,9 +37,10 @@ class RenderEngine extends \Twig_Environment
         parent::__construct($loader, $options);
         $this->report = $report;
         $this->extensionManager = new RenderEngineExtensionManager(
-            $templatingHelper, $report);
+            $templatingHelper, $report, $templatingHelper->getWrapperUrl());
         $this->templatingHelper = $templatingHelper;
         $this->registerExtensions();
+        $this->router = $this->extensionManager->findExtension('report_routing');
     }
 
     /**
@@ -46,6 +53,14 @@ class RenderEngine extends \Twig_Environment
             ->render(['content'=>$reportBody, 'report'=>$this->report]);
 
         return $content;
+    }
+
+    /**
+     * @return null|ReportRouting|\Twig_Extension
+     */
+    public function getRouter()
+    {
+        return $this->router;
     }
 
     /**
@@ -65,28 +80,26 @@ class RenderEngine extends \Twig_Environment
         $doc = new \DOMDocument();
         $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES'));
 
-        $reportRouting = $this->extensionManager->findExtension('report_routing');
-
-        if (null === $reportRouting) {
+        if (null === $this->router) {
             throw new ExtensionNotLoadedException('report_routing');
         }
 
         /* Transform images */
         $images = $doc->getElementsByTagName('img');
         foreach($images as $image) {
-            $this->prepareAsset($image, 'src', $reportRouting);
+            $this->prepareAsset($image, 'src', $this->router);
         }
 
         /* Transform styles */
         $styles = $doc->getElementsByTagName('link');
         foreach($styles as $style) {
-            $this->prepareAsset($style, 'href', $reportRouting);
+            $this->prepareAsset($style, 'href', $this->router);
         }
 
         /* Transform scripts */
         $scripts = $doc->getElementsByTagName('script');
         foreach($scripts as $script) {
-            $this->prepareAsset($script, 'src', $reportRouting);
+            $this->prepareAsset($script, 'src', $this->router);
         }
 
         return $doc->saveHTML();

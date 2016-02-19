@@ -16,17 +16,24 @@ use RAM\BaseReport;
  */
 class RenderEngineExtensionManager
 {
+    /** @var BaseReport  */
     protected $report;
 
+    /** @var ReportTemplatingHelper  */
     protected $templatingHelper;
 
+    /** @var string */
+    protected $wrapperUrl;
+
+    /** @var array  */
     protected $extensions = array();
 
     public function __construct(ReportTemplatingHelper $templatingHelper,
-                                BaseReport $report)
+                                BaseReport $report, $wrapperUrl)
     {
         $this->templatingHelper = $templatingHelper;
         $this->report = $report;
+        $this->wrapperUrl = $wrapperUrl;
         $this->findExtensions();
     }
 
@@ -58,7 +65,7 @@ class RenderEngineExtensionManager
     protected function findExtensions()
     {
         /* TODO: Automate extension addition */
-        $routingExtension = new ReportRouting($this->templatingHelper, $this->report);
+        $routingExtension = new ReportRouting($this->templatingHelper, $this->report, $this->wrapperUrl);
         $this->extensions[$routingExtension->getName()] = $routingExtension;
     }
 }

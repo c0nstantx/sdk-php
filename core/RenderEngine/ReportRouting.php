@@ -20,11 +20,14 @@ class ReportRouting extends \Twig_Extension
 
     protected $report;
 
+    protected $wrapperUrl;
+
     public function __construct(ReportTemplatingHelper $templatingHelper,
-                                BaseReport $report)
+                                BaseReport $report, $wrapperUrl)
     {
         $this->templatingHelper = $templatingHelper;
         $this->report = $report;
+        $this->wrapperUrl = $wrapperUrl;
     }
 
     /**
@@ -55,7 +58,21 @@ class ReportRouting extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('url', array($this, 'getUrl')),
             new \Twig_SimpleFunction('path', array($this, 'getPath')),
+            new \Twig_SimpleFunction('https_wrapper', array($this, 'getHttpsWrappedUrl')),
         );
+    }
+
+    /**
+     * Get HTTPS wrapped asset url.
+     *
+     * @param string $name
+     * @param array  $parameters
+     *
+     * @return string
+     */
+    public function getHttpsWrappedUrl($url)
+    {
+        return $this->wrapperUrl.'?'.http_build_query(['url'=>$url]);
     }
 
     /**

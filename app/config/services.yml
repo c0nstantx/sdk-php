@@ -13,7 +13,7 @@ services:
         arguments: [@service_container]
     report_templating_helper:
         class: RG\RenderEngine\ReportTemplatingHelper
-        arguments: [%report_assets%, %web_path%]
+        arguments: [%report_assets%, %web_path%, https://rocketgraph.com/sw ]
     storage_service:
         class: RAM\Services\Storage
         arguments: [%storage_path%]
