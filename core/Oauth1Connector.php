@@ -138,6 +138,7 @@ abstract class Oauth1Connector extends Server implements ConnectorInterface
         parent::__construct([
             'identifier' => $this->key,
             'secret' => $this->secret,
+            'callback_uri' => $this->callbackUrl
         ]);
     }
 
