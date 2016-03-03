@@ -16,6 +16,8 @@ class SlackConnector extends Oauth2Connector
 {
     const API_HOST = 'https://slack.com/api';
 
+    protected $tokenName = 'token';
+
     /**
      * Returns the base URL for authorizing a client.
      *
