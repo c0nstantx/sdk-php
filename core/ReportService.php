@@ -7,6 +7,7 @@
 namespace RG;
 use RAM\BaseReport;
 use RAM\Services\Sentiment;
+use RAM\Services\SpellingService;
 use RG\Exception\ReportNotFoundException;
 use RG\RenderEngine\RenderEngine;
 use Symfony\Component\DependencyInjection\Container;
@@ -94,6 +95,7 @@ class ReportService
         $openConnector = $this->container->get('connector_service')->buildOpenConnector();
         $this->report->setOpenConnector($openConnector);
         $this->report->setSentiment(new Sentiment());
+        $this->report->setSpelling(new SpellingService());
     }
 
     /**

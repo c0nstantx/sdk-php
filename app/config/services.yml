@@ -25,4 +25,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: report.post_render, method: onReportRender }
         arguments: [@report_templating_helper]
+    spelling_service:
+        class: RAM\Services\SpellingService
+        arguments: []
 

@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use RAM\Connectors\NoAuthConnector;
 use RAM\Exception\ConnectorNotFoundException;
 use RAM\Services\Sentiment;
+use RAM\Services\SpellingService;
 use RG\Interfaces\ReportInterface;
 use RG\Interfaces\StorageInterface;
 use RG\RenderEngine\RenderEngine;
@@ -61,6 +62,9 @@ abstract class BaseReport implements ReportInterface
     /* @var Sentiment */
     protected $sentiment;
 
+    /* @var  \RAM\Services\SpellingService */
+    protected $spelling;
+
     /**
      * @param EventDispatcherInterface $dispatcher
      */
@@ -79,6 +83,12 @@ abstract class BaseReport implements ReportInterface
     {
         $this->sentiment = $sentiment;
     }
+
+    final public function setSpelling(SpellingService $spelling)
+    {
+        $this->spelling = $spelling;
+    }
+
 
     /**
      * @param $connectors
