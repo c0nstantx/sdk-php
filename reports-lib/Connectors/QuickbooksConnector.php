@@ -12,7 +12,7 @@ use RG\Oauth1Connector;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class QuickBooksConnector extends Oauth1Connector
+class QuickbooksConnector extends Oauth1Connector
 {
     const API_HOST = 'https://quickbooks.api.intuit.com';
 

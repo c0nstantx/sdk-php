@@ -12,7 +12,7 @@ use League\OAuth2\Client\Token\AccessToken;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class FacebookPageConnector extends FacebookConnector
+class FacebookpageConnector extends FacebookConnector
 {
     protected $pageId = null;
 
