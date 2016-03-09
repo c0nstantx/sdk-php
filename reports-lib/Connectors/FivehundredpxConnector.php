@@ -12,7 +12,7 @@ use RG\Oauth1Connector;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class FiveHundredpxConnector extends Oauth1Connector
+class FivehundredpxConnector extends Oauth1Connector
 {
     const API_VERSION = 'v1';
     const API_HOST = 'https://api.500px.com';

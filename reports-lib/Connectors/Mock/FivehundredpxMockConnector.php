@@ -13,7 +13,7 @@ use RG\Traits\MockConnectorTrait;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class FiveHundredpxMockConnector extends FiveHundredpxConnector
+class FivehundredpxMockConnector extends FiveHundredpxConnector
 {
     use MockConnectorTrait;
 }

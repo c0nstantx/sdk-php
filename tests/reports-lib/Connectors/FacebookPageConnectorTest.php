@@ -28,7 +28,7 @@ class FacebookPageConnectorTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $proxy = new Proxy('path');
-        $this->connector = $this->getMockBuilder('RAM\Connectors\FacebookPageConnector')
+        $this->connector = $this->getMockBuilder('RAM\Connectors\FacebookpageConnector')
             ->setConstructorArgs([$browser, $proxy])
             ->setMethods([
                 'get',

@@ -13,7 +13,7 @@ use RG\Traits\MockConnectorTrait;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class FacebookPageMockConnector extends FacebookPageConnector
+class FacebookpageMockConnector extends FacebookPageConnector
 {
     use MockConnectorTrait;
 }
