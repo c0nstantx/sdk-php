@@ -12,7 +12,7 @@ use RG\Oauth1Connector;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class FreshBooksConnector extends Oauth1Connector
+class FreshbooksConnector extends Oauth1Connector
 {
     const API_HOST = 'http://www.freshbooks.com/api';
     const API_VERSION = '2.1';
