@@ -11,7 +11,7 @@ namespace RAM\Connectors;
  *
  * @author K.Christofilos <kostas.christofilos@rocketgraph.com>
  */
-class GoogleAnalyticsConnector extends GoogleConnector
+class GoogleanalyticsConnector extends GoogleConnector
 {
     public static $API_URL = 'https://content.googleapis.com/analytics/v3';
 }

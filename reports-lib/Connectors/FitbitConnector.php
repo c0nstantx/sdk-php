@@ -19,7 +19,7 @@ class FitbitConnector extends Oauth2Connector
 
     const API_VERSION = '1';
 
-    protected $scopes = [
+    public $scopes = [
         'activity',
         'nutrition',
         'profile',
