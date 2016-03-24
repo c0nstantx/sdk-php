@@ -61,6 +61,15 @@ trait ConnectorTrait
      */
     public static function bindUrlOptions($url, array $options = [])
     {
+        $urlParts = parse_url($url);
+        if (isset($urlParts['query'])) {
+            parse_str($urlParts['query'], $existingOptions);
+            foreach($options as $key => $value) {
+                $existingOptions[$key] = $value;
+            }
+            $options = $existingOptions;
+            $url = $urlParts['scheme'].'://'.$urlParts['host'].$urlParts['path'];
+        }
         $query = http_build_query($options);
         if ($query !== '') {
             $url .= "?$query";
