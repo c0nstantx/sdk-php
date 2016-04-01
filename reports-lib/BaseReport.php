@@ -12,6 +12,7 @@ namespace RAM;
 use Doctrine\Common\Collections\ArrayCollection;
 use RAM\Connectors\NoAuthConnector;
 use RAM\Exception\ConnectorNotFoundException;
+use RAM\Services\Logger;
 use RAM\Services\Sentiment;
 use RAM\Services\SpellingService;
 use RG\Interfaces\ReportInterface;
@@ -65,6 +66,9 @@ abstract class BaseReport implements ReportInterface
     /* @var  \RAM\Services\SpellingService */
     protected $spelling;
 
+    /** @var  Logger */
+    protected $logger;
+
     /**
      * @param EventDispatcherInterface $dispatcher
      */
@@ -74,25 +78,66 @@ abstract class BaseReport implements ReportInterface
         $this->storage = $storage;
     }
 
+    /**
+     * @return Logger
+     */
+    final public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
+     * @param Logger $logger
+     * 
+     * @return BaseReport
+     */
+    final public function setLogger($logger)
+    {
+        $this->logger = $logger;
+        
+        return $this;
+    }
+
+    /**
+     * @param NoAuthConnector $connector
+     *
+     * @return BaseReport
+     */
     final public function setOpenConnector(NoAuthConnector $connector)
     {
         $this->openConnector = $connector;
+
+        return $this;
     }
 
+    /**
+     * @param Sentiment $sentiment
+     *
+     * @return BaseReport
+     */
     final public function setSentiment(Sentiment $sentiment)
     {
         $this->sentiment = $sentiment;
+
+        return $this;
     }
 
+    /**
+     * @param SpellingService $spelling
+     *
+     * @return BaseReport
+     */
     final public function setSpelling(SpellingService $spelling)
     {
         $this->spelling = $spelling;
-    }
 
+        return $this;
+    }
 
     /**
      * @param $connectors
-     * @return $this
+     *
+     * @return BaseReport
      */
     final public function setConnectors($connectors)
     {
@@ -119,6 +164,7 @@ abstract class BaseReport implements ReportInterface
 
     /**
      * @param string $css
+     *
      * @return $this
      */
     final public function addStyle($css)
@@ -279,6 +325,28 @@ abstract class BaseReport implements ReportInterface
             }
         }
         throw new ConnectorNotFoundException($provider);
+    }
+
+    /**
+     * @param $message
+     */
+    final public function log($message)
+    {
+        if (null !== $this->logger) {
+            $this->logger->log($message);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    final public function getLogs()
+    {
+        if (null !== $this->logger) {
+            $this->logger->getLogs();
+        }
+
+        return [];
     }
 
     /**

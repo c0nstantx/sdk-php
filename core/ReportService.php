@@ -45,10 +45,14 @@ class ReportService
                 if ($this->isValidReport($reportPath)) {
                     include_once $reportPath;
                     $class = $this->getReportClass($reportPath);
+                    $storage = $this->container->get('storage_service');
                     $this->report = new $class(
                         $this->container->get('event_dispatcher'),
-                        $this->container->get('storage_service')
+                        $storage
                     );
+                    $logger = $this->container->get('logger');
+                    $logger->setStorage($storage);
+                    $this->report->setLogger($logger);
                     $this->setTemplateEngine($this->report);
                     $this->linkFolders($class);
 

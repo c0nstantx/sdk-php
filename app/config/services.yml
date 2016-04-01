@@ -27,5 +27,5 @@ services:
         arguments: [@report_templating_helper]
     spelling_service:
         class: RAM\Services\SpellingService
-        arguments: []
-
+    logger:
+        class: RAM\Services\Logger

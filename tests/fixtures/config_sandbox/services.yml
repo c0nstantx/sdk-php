@@ -20,3 +20,5 @@ services:
     proxy_service:
         class: RG\Proxy
         arguments: [%proxy_path%]
+    logger:
+        class: RAM\Services\Logger

@@ -46,7 +46,7 @@ class Storage implements StorageInterface
      *
      * @return null
      */
-    final public function find($key)
+    final public function find($key, $array = false)
     {
         $hash = $this->generateHash($key);
         $file = $this->storagePath.'/'.$hash.'.json';
@@ -54,7 +54,7 @@ class Storage implements StorageInterface
             $content = file_get_contents($file);
             try {
                 $content = json_decode($content);
-                return $content->value;
+                return $array ? json_decode(json_encode($content->value), true): $content->value;
             } catch (\Exception $ex) {
             }
         }
