@@ -80,7 +80,8 @@ class ConnectorService
             'weibo' => 'Weibo',
             'meetup' => 'Meetup',
             'misfit' => 'Misfit',
-            'withings' => 'Withings'
+            'withings' => 'Withings',
+            'powerbi' => 'Power BI'
         ];
 
         asort($connectors, SORT_STRING);
