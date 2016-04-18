@@ -62,6 +62,8 @@ class Storage implements StorageInterface
     }
 
     /**
+     * Delete a record
+     *
      * @param mixed $key
      */
     final public function delete($key)
@@ -69,6 +71,19 @@ class Storage implements StorageInterface
         $hash = $this->generateHash($key);
         $file = $this->storagePath.'/'.$hash.'.json';
         @unlink($file);
+    }
+
+    /**
+     * Clear storage
+     */
+    final public function clear()
+    {
+        $dirIterator = new \DirectoryIterator($this->storagePath);
+        foreach($dirIterator as $file) {
+            if ($file->isFile()) {
+                @unlink($file->getFileInfo());
+            }
+        }
     }
 
     /**
