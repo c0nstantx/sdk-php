@@ -186,6 +186,16 @@ Sentiment analysis API cannot be implemented inside the SDK, that's why the `cac
 $this->sentiment->calculate('Phrase to test sentiment'); // Random -1 to 1
 ```
 
+Report Development
+---------------------------
+
+Your report code lies inside the `/src` folder. There is also a report example inside `/src_demo`, while the public folder of the report render (webserver root) is the `/web` folder.
+
+For example, if you have installed the sdk to your `localhost` root folder, you can access the rendered report in the url: `http://localhost/web`
+
+For more details on how to create a report read the [Developer's Manual][9].
+
+
 [1]: https://rocketgraph.com
 [2]: https://getcomposer.org/doc/00-intro.md
 [3]: http://yaml.org/
